@@ -2,9 +2,6 @@ import pandas as pd
 import openai
 import os
 import json
-import re
-from dotenv import load_dotenv, find_dotenv
-_ = load_dotenv(find_dotenv())
 
 openai.api_key = os.environ.get('OPENAI_API_KEY')
 
