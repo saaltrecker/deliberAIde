@@ -1,5 +1,5 @@
 
-def json_to_mermaid(target):
+def json_to_mermaid(output: dict):
     def process_viewpoint(name, viewpoint, parent=None):
         nonlocal counter
         node_id = f"N{counter}"
@@ -14,7 +14,7 @@ def json_to_mermaid(target):
     counter = 0
     nodes = {}
     edges = []
-    for topic, viewpoints in viewpoints_by_topics.items():
+    for topic, viewpoints in output.items():
         topic_id = f"N{counter}"
         nodes[topic_id] = topic
         counter += 1
@@ -143,9 +143,29 @@ def deliberaide_output(transcript: str): # Mock function, replace with our finis
     }
     return targets
 
+def dict_to_mermaid(nested_dict, parent_node=None, mermaid_str=''):
+    # Base case: if the nested_dict is not a dictionary, return the accumulated string
+    if not isinstance(nested_dict, dict):
+        return mermaid_str
+
+    # Recursive case: for each item in the dictionary, add a line to the Mermaid string and recurse on the value
+    for key, value in nested_dict.items():
+        # Create a node name by replacing spaces with underscores (Mermaid node IDs can't have spaces)
+        node_name = key.replace(' ', '_')
+        
+        # If there is a parent node, create an arrow from the parent node to this node
+        if parent_node is not None:
+            mermaid_str += f'  {parent_node} --> {node_name}\n'
+        
+        # Recurse on the value, using the current key as the parent node for the next level
+        mermaid_str = dict_to_mermaid(value, parent_node=node_name, mermaid_str=mermaid_str)
+    
+    return mermaid_str
+
+
 def get_topics(transcript: str):
     return topics_json
-def get_viewpoints_by_topic(transcript: str):
+def get_viewpoints_by_topic(viewpoints, transcript: str):
     return viewpoints_by_topics
 def get_arguments_by_viewpoint(transcript: str):
     return arguments_by_viewpoints

@@ -41,6 +41,14 @@ h1 {
     margin: auto;
 }
 
+.mermaid {
+    width: 100%;
+    height: auto;
+    max-width: 1500px; /* Or whatever size you want*/  
+    margin: 0 auto;   /* This centers the diagram*/  
+    font-size: 100px;  /*Change the font size*/
+}
+
 /* Hide the checkbox */
 input[type="checkbox"] {
     display: none;

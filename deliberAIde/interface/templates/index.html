@@ -45,18 +45,6 @@
                         {{ mermaid_diagram }}
                     </div>
                 {% endif %}
-                <h2>
-                    {% if output.split is defined %}
-                        {{ output }}
-                    {% else %}
-                        {% for key, value in output.items() %}
-                            <h3>Here are the {{key}}</h3>
-                            {% for item in value %}
-                                {{ item }}<br>
-                            {% endfor %}<br>
-                        {% endfor %}
-                    {% endif %}
-                </h2>
             </div>
         {% endif %}
     </div>
