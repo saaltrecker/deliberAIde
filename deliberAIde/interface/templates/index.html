@@ -1,0 +1,68 @@
+{% extends 'base.html' %} {# This line tells Jinja that this template 
+    should replace the {% block body %} in base.html with the contents of this template. #}
+
+{% block head %}
+    {% if title %}
+    <title>{{ title }} - Here for you!</title>
+    {% else %}
+    <title>Here for you!</title>
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <div style="text-align:center"> 
+        <h1>Welcome to deliberAIde</h1>
+        <p>Please input your transcript below.</p>
+    </div>
+    <form method="POST" class="form">
+        <div style="text-align:center"> 
+            <textarea name="text" cols="40" rows="5" class="input-field"></textarea><br>
+            
+            {# Here are the checkboxes for filtering the targets #}
+            <h3>Show me...</h3>
+            <div>
+                <input type="checkbox" id="topics" name="topics" value="true" checked>
+                <label for="topics">Topics</label>
+            </div><br>
+            <div>
+                <input type="checkbox" id="viewpoints" name="viewpoints" value="true" checked>
+                <label for="viewpoints">Viewpoints</label>
+            </div><br>
+            <div>
+                <input type="checkbox" id="arguments" name="arguments" value="true" checked>
+                <label for="arguments">Arguments</label>
+            </div><br><br><br>
+
+            <input type="hidden" id="should_scroll" name="should_scroll" value="{{ should_scroll }}">
+            <button type="submit" class="button">deliberAIde now</button>
+        </div>
+    </form>
+    <div id="output">
+        {% if output %}
+            <div style="text-align:center"><br><br>
+                <h2>
+                    {% if output.split is defined %}
+                        {{ output }}
+                    {% else %}
+                        {% for key, value in output.items() %}
+                            <h3>Here are the {{key}}</h3>
+                            {% for item in value %}
+                                {{ item }}<br>
+                            {% endfor %}<br>
+                        {% endfor %}
+                    {% endif %}
+                </h2>
+            </div>
+        {% endif %}
+    </div>    
+{% endblock %}
+<script>
+    // This function runs when the page loads
+    document.addEventListener("DOMContentLoaded", function() {
+        var shouldScroll = document.getElementById('should_scroll').value;
+        if (shouldScroll == 'True') {
+            var output = document.getElementById('output');
+            output.scrollIntoView({behavior: "smooth"});
+        }
+    });
+</script>
