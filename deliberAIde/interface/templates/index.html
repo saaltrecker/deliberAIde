@@ -40,6 +40,11 @@
     <div id="output">
         {% if output %}
             <div style="text-align:center"><br><br>
+                {% if mermaid_diagram %}
+                    <div class="mermaid">
+                        {{ mermaid_diagram }}
+                    </div>
+                {% endif %}
                 <h2>
                     {% if output.split is defined %}
                         {{ output }}
@@ -54,15 +59,22 @@
                 </h2>
             </div>
         {% endif %}
-    </div>    
-{% endblock %}
-<script>
-    // This function runs when the page loads
-    document.addEventListener("DOMContentLoaded", function() {
-        var shouldScroll = document.getElementById('should_scroll').value;
-        if (shouldScroll == 'True') {
-            var output = document.getElementById('output');
-            output.scrollIntoView({behavior: "smooth"});
+    </div>
+    <script>
+        // This function runs when the page loads
+        document.addEventListener("DOMContentLoaded", function() {
+            //console.log("DOMContentLoaded event fired"); Just some troubleshooting
+            var shouldScroll = document.getElementById('should_scroll').value;
+            //console.log("Should scroll: " + shouldScroll); Just some troubleshooting
+            if (shouldScroll == 'True') { 
+                //console.log("Scrolling to bottom"); // Just some troubleshooting
+                //window.scrollTo(0, document.body.scrollHeight); // Just some troubleshooting
+                var output = document.getElementById('output');
+                output.scrollIntoView({behavior: "smooth"});
         }
-    });
-</script>
+        });
+    </script>
+    <script>
+        mermaid.initialize({startOnLoad:true});
+    </script>
+{% endblock %}
