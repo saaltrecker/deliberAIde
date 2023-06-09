@@ -3,11 +3,14 @@ pip>=9
 setuptools>=26
 twine
 wheel>=0.29
-
+os
+dotenv
+load_dotenv
+find_dotenv
 # data science
-numpy
 pandas
-scikit-learn
+json
+re
 
 # tests/linter
 black
@@ -17,6 +20,7 @@ pytest
 yapf
 
 # API
+openai
 gcsfs
 google-cloud-storage
 mlflow
