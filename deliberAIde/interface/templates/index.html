@@ -16,20 +16,20 @@
     </div>
     <form method="POST" class="form">
         <div style="text-align:center"> 
-            <textarea name="text" cols="40" rows="5" class="input-field"></textarea><br>
+            <textarea name="text" cols="40" rows="5" class="input-field">{{ text }}</textarea><br>
             
             {# Here are the checkboxes for filtering the targets #}
             <h3>Show me...</h3>
             <div>
-                <input type="checkbox" id="topics" name="topics" value="true" checked>
+                <input type="checkbox" id="topics" name="topics" value="true" {% if topics_filter %}checked{% endif %}>
                 <label for="topics">Topics</label>
             </div><br>
             <div>
-                <input type="checkbox" id="viewpoints" name="viewpoints" value="true" checked>
+                <input type="checkbox" id="viewpoints" name="viewpoints" value="true" {% if viewpoints_filter %}checked{% endif %}>
                 <label for="viewpoints">Viewpoints</label>
             </div><br>
             <div>
-                <input type="checkbox" id="arguments" name="arguments" value="true" checked>
+                <input type="checkbox" id="arguments" name="arguments" value="true" {% if arguments_filter %}checked{% endif %}>
                 <label for="arguments">Arguments</label>
             </div><br><br><br>
 
@@ -38,13 +38,20 @@
         </div>
     </form>
     <div id="output">
-        {% if output %}
+        {% if output.split is defined %}
+            {{ output }}
+        {% else %}
             <div style="text-align:center"><br><br>
-                {% if mermaid_diagram %}
-                    <div class="mermaid">
-                        {{ mermaid_diagram }}
-                    </div>
-                {% endif %}
+            {% if mermaid_diagram %}
+                <div class="mermaid">
+                    {{ mermaid_diagram }}
+                </div>
+            {% else %}
+                <h2> Here are the topics</h2><br>
+                {% for topic in output.topics %}
+                    <p>{{topic}}</p>
+                {% endfor %}
+            {% endif %}
             </div>
         {% endif %}
     </div>
