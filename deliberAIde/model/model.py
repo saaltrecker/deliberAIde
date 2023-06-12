@@ -20,23 +20,27 @@ def get_completion(prompt, model="gpt-4"):
 
 def get_topics(transcript):
 
-    prompt_topic = f'''
+    prompt_topic = f"""
     You are an assistant for group discussions, specializing in keeping track of and documenting the discussion,/
     that is, the topics discussed, the viewpoints/positions on each topic, and the arguments/explanations given in support of each viewpoint./
-    Identify the one or several main topics discussed in the discussion transcript, delimited with triple quotation marks.
-    Check the following steps but don’t print each step only print what is asked:
-
-    Step 1: Are there one or several main topics being discussed the transcript? A main discussion topic refers the central theme or subject matter that is being discussed. It is the primary focus of the conversation. Sub-topics, on the other hand, are secondary or supporting themes that are related to the main topic. They provide additional information or context to help understand the main topic better. In other words, sub-topics are branches of the main topic that help to explore it in more detail. For example, in the following discussion, delimited by triple hashtags, there is only one main topic, which is 'Social media in politics', and there are multiple sub-topics, such as 'Concern about misinformation' and 'Lack of regulation and transcparency': ###Participant 1: "The role of social media in political campaigns is a subject that has gained significant attention in recent years. It has become a powerful tool for politicians to engage with voters and spread their message. However, there are concerns about the spread of misinformation and the manipulation of public opinion through targeted ads." Participant 2: "I agree that social media provides a platform for political candidates to connect with a wider audience and mobilize support. However, the lack of regulation and transparency in political advertising on these platforms is a major issue that needs to be addressed." Participant 3: "I believe that social media has democratized political discourse and allowed marginalized voices to be heard. It provides a platform for grassroots movements and enables citizens to participate in political discussions like never before. We should focus on educating users about media literacy and critical thinking to combat misinformation." Participant 4: "While social media has its benefits, the algorithms used by these platforms tend to create echo chambers and reinforce existing biases. We need better regulation to ensure that diverse viewpoints are represented and to prevent the manipulation of public opinion through targeted content."### Whereas, in the discussion, delimited by triple *, there are two topics, 'Social media in politics' and 'Animal testing':***Participant 1: "The role of social media in political campaigns is a subject that has gained significant attention in recent years. It has become a powerful tool for politicians to engage with voters and spread their message. However, there are concerns about the spread of misinformation and the manipulation of public opinion through targeted ads." Participant 2: "I agree that social media provides a platform for political candidates to connect with a wider audience and mobilize support. However, the lack of regulation and transparency in political advertising on these platforms is a major issue that needs to be addressed." Participant 3: "I believe that social media has democratized political discourse and allowed marginalized voices to be heard. It provides a platform for grassroots movements and enables citizens to participate in political discussions like never before. We should focus on educating users about media literacy and critical thinking to combat misinformation." Participant 4: "While social media has its benefits, the algorithms used by these platforms tend to create echo chambers and reinforce existing biases. We need better regulation to ensure that diverse viewpoints are represented and to prevent the manipulation of public opinion through targeted content. Participant 1: "Animal testing is necessary for medical research. It has contributed to numerous medical advancements and the development of life-saving treatments." Participant 2: "While I understand the importance of medical research, we should also consider the ethical concerns associated with animal testing. Animals deserve to be treated with compassion and should not suffer for the sake of human benefits." Participant 3: "There are alternatives to animal testing, such as in vitro testing and computer simulations, that can provide reliable results without causing harm to animals. We should prioritize the development and adoption of these alternatives." Participant 4: "Animal testing should be regulated and minimized, but we cannot completely eliminate it at this stage. Striking a balance between scientific progress and animal welfare is crucial." Participant 5: "We need more transparency and accountability in animal testing. Researchers should provide clear justifications for using animals and ensure that it is conducted in the most humane way possible."***
-            Your task in this step 1 is to decide whether there is one main topic or multiple main topics.
-    Step 2: If there is only one main discussion topic, summarize the topic in keywords. Make sure to fully capture the topic. Create a dictionary with the identified and summarized topic as key and the corresponding excerpt from the transcript as value.
-            If there are several main discussion topics, summarize each topic in keywords. Make sure to fully capture the topic. Create a dictionary with all the identified and summarized topics as keys and the corresponding excerpts from the transcript as value.
-
-    Step 3: Provide the output dictionary in the following JSON format:
-            {{
-            "Topic keywords": "corresponding discussion excerpt"
-            }}
-    Review transcript: """{transcript}"""
-    '''
+    
+    Identify the topics discussed in the discussion transcript, delimited with triple backticks.
+    
+    Check the following steps but don't print each step only print what is asked:
+    
+    Step 1: Identify the topics discussed in the discussion transcript. Take the time to read the complete transcript, don't 
+            take words as a whole argument, analyze the complete argument and then decide on the topic.\ 
+    Step 2: Analyze each topic (if there is more than one), and merge those into only one main topic. 
+            If there are topics that are as important as the main topic, display them as a second topic but only if it is linked to the 
+    main topic of discussion in the transcript. Only in this case, you can display more topics.\
+    Step 3: Extract the statements related to each topic.\
+    Step 4: State the necessary main topics of the entire transcript in a concise, descriptive sentence, 
+            in up to 3 words for each topic.\
+    Step 5: Provide the output in a JSON format where the key is the topic and the value is a list of statements made by the 
+            participants.\
+    
+    Review transcript: '''{transcript}'''
+    """
 
     topics = get_completion(prompt_topic)
     topics_json = json.loads(topics)

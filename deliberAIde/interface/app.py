@@ -22,43 +22,54 @@ def home(title='deliberAIde'):
         arguments_filter = request.form.get('arguments') # checkbox args. 
         
         output = {}
+        mermaid_diagram = None
         
         if topics_filter:
-            topics = get_topics(text)
-            output['topics'] = topics
-            mermaid_diagram = dict_to_mermaid(topics)
+            #if not topics:
+                topics = get_topics(text)
+                output['topics'] = topics
         if viewpoints_filter:
-            viewpoints = get_viewpoints_by_topic(topics, text)
-            output['viewpoints'] = viewpoints
-            mermaid_diagram = json_to_mermaid(viewpoints)
-        if arguments_filter:
-            if viewpoints == None: 
+           # if not viewpoints:
                 viewpoints = get_viewpoints_by_topic(topics, text)
-            arguments = get_arguments_by_viewpoint(viewpoints)
-            output['arguments'] = arguments
-            mermaid_diagram = json_to_mermaid(arguments)
+                output['viewpoints'] = viewpoints
+                mermaid_diagram = json_to_mermaid(viewpoints)
+        if not arguments_filter:
+            #if not viewpoints: 
+                viewpoints = get_viewpoints_by_topic(topics, text)
+                arguments = get_arguments_by_viewpoint(viewpoints)
+                output['arguments'] = arguments
+                mermaid_diagram = json_to_mermaid(arguments)
 
         # Now return this output in the response
         # You can pass this output to the template and display it
         if not text:
             return render_template('index.html', title=title, 
-                                   should_scroll=should_scroll, 
+                                   should_scroll=should_scroll,
+                                   text=text,
+                                   topics_filter=topics_filter, 
+                                   viewpoints_filter=viewpoints_filter, 
+                                   arguments_filter=arguments_filter,
                                    output="Sorry, I didn't detect a transcript. Please try again!")
         if not (topics or viewpoints or arguments):
             return render_template('index.html', title=title, 
-                                   should_scroll=should_scroll, 
+                                   should_scroll=should_scroll,
+                                   text=text,
+                                   topics_filter=topics_filter, 
+                                   viewpoints_filter=viewpoints_filter, 
+                                   arguments_filter=arguments_filter, 
                                    output="Sorry, it seems you haven't chosen any filters. Please try again!")
         return render_template('index.html', title=title, 
                                should_scroll=should_scroll,
-                            #    topics=topics,
-                            #    viewpoints=viewpoints,
-                            #    arguments=arguments,
+                               text=text,
+                               topics_filter=topics_filter,
+                               viewpoints_filter=viewpoints_filter,
+                               arguments_filter=arguments_filter,
                                output=output,
                                mermaid_diagram=mermaid_diagram)
     
      # If it's a GET request, just render the page normally
     should_scroll = 'False'
-    return render_template('index.html', title=title)
+    return render_template('index.html', title=title,  output={})
 
 
 if __name__ == '__main__':
