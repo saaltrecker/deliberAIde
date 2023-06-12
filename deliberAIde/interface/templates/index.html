@@ -37,11 +37,11 @@
             <button type="submit" class="button">deliberAIde now</button>
         </div>
     </form>
-    <div id="output">
+    <div  style="text-align:center" id="output">
         {% if output.split is defined %}
-            {{ output }}
+            <h1>{{ output }}</h1>
         {% else %}
-            <div style="text-align:center"><br><br>
+            <div><br><br>
             {% if mermaid_diagram %}
                 <div class="mermaid">
                     {{ mermaid_diagram }}
