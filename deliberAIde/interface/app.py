@@ -13,12 +13,12 @@ from flask import Flask, render_template, request, redirect, jsonify, Response, 
 from functions.dict_create import dict_create
 #from flask_ngrok import run_with_ngrok # !TODO (if we want to make it online and not just local)
 
-app = Flask(__name__) # This is how we create an instance of the Flask class for our app. 
+app = Flask(__name__) # This is how we create an instance of the Flask class for our app.
 
-@app.route('/', methods=['GET', 'POST']) # This is the home page route. This decorator 
+@app.route('/', methods=['GET', 'POST']) # This is the home page route. This decorator
                                         # tells Flask what URL should trigger our function (home, in this case).
 def home():
-    b_params = dict_create(should_scroll='False', text='', topics_filter=None, 
+    b_params = dict_create(should_scroll='False', text='', topics_filter=None,
                        viewpoints_filter=None, arguments_filter=None)
     if request.method == 'POST':
         start = time.process_time()
@@ -27,20 +27,20 @@ def home():
         text = request.form['text'] # input transcript. Pass this text to your model and get the result
         # Filter Checkboxes
         topics_filter = request.form.get('topics') # checkbox topics. Fetches value of the checkbox
-        viewpoints_filter = request.form.get('viewpoints') # checkbox viewpoints. 
-        arguments_filter = request.form.get('arguments') # checkbox args. 
-        
+        viewpoints_filter = request.form.get('viewpoints') # checkbox viewpoints.
+        arguments_filter = request.form.get('arguments') # checkbox args.
+
         output = {}
         mermaid_diagram = None
-        
-        b_params = dict_create(should_scroll=should_scroll, text=text, topics_filter=topics_filter, 
+
+        b_params = dict_create(should_scroll=should_scroll, text=text, topics_filter=topics_filter,
                                   viewpoints_filter=viewpoints_filter, arguments_filter=arguments_filter)
-            
-        
+
+
         if not text: # if no text is entered, return an error message saying input transcript
             return render_template('main.html', b_params=b_params,
                                    output="Sorry, I didn't detect a transcript. Please try again!")
-            
+
         if not (topics_filter or viewpoints_filter or arguments_filter): # if no filters are selected, return an error message saying select a filter
             return render_template('main.html', b_params=b_params,
                                    output="Sorry, it seems you haven't chosen any filters. Please try again!")
@@ -53,9 +53,9 @@ def home():
                     #print(output)
                     print(time.process_time() - start)
                 except Exception as e:
-                    return render_template('main.html', b_params=b_params, 
-                           error_message=f'Error getting topics: {str(e)}')    
-                
+                    return render_template('main.html', b_params=b_params,
+                           error_message=f'Error getting topics: {str(e)}')
+
         if viewpoints_filter:
            # if not viewpoints:
                 try:
@@ -66,10 +66,10 @@ def home():
                     print(time.process_time() - start)
                 except Exception as e:
                     return render_template('main.html', b_params=b_params, error_message=f'Error getting viewpoints: {str(e)}')
-                
+
         if arguments_filter:
             try:
-                if not viewpoints: 
+                if not viewpoints:
                     viewpoints = get_viewpoints_by_topic(topics, text)
                 arguments = get_arguments_by_viewpoint(viewpoints, text)
                 output['arguments'] = arguments
@@ -84,20 +84,20 @@ def home():
         return render_template('main.html', b_params=b_params,
                                output=output,
                                mermaid_diagram=mermaid_diagram)
-    
+
     # If it's a GET request, just render the page normally
     #should_scroll = 'False'
     return render_template('main.html',  b_params=b_params, output={})
 
 
-@app.route('/use', methods=['GET', 'POST']) # This is the use route. 
+@app.route('/use', methods=['GET', 'POST']) # This is the use route.
 def use():
     return render_template('use.html')
 
 
-@app.route('/mission', methods=['GET', 'POST']) # This is the mission route. 
+@app.route('/mission', methods=['GET', 'POST']) # This is the mission route.
 def mission():
-    b_params = dict_create(should_scroll='False', text='', topics_filter=None, 
+    b_params = dict_create(should_scroll='False', text='', topics_filter=None,
                        viewpoints_filter=None, arguments_filter=None)
     return render_template('mission.html', b_params=b_params, output={})
 
