@@ -1,0 +1,77 @@
+{% extends 'base.html' %} {# This line tells Jinja that this template 
+    should replace the {% block body %} in base.html with the contents of this template. #}
+
+{% block head %}
+    <title>deliberAIde now</title>
+{% endblock %}
+
+{% block body %}
+    <div style="text-align:center"> 
+        <p>Please input your transcript below.</p>
+    </div>
+    <form method="POST" class="form">
+        <div style="text-align:center"> 
+
+            <textarea name="text" cols="40" rows="5" class="input-field">{{ b_params.text }}</textarea><br>
+            
+            {# Here are the checkboxes for filtering the targets #}
+            <h3>Show me...</h3>
+
+            <div style="position: absolute; top: 50.2%; left: 41.7%; width: 100%; height: 11%; border-left: 1px solid rgb(255, 255, 255);"></div>
+            <div style="position: absolute; top: 50.2%; left: 58.3%; width: 100%; height: 11%; border-left: 1px solid rgb(255, 255, 255);"></div>
+            <div style="position: absolute; top: 50.2%; left: 58.3%; width: 500%; height: 11%; border-left: 1px solid rgb(255, 255, 255);"></div>
+            <div style="position: absolute; top: 50.2%; left: 53.2%; height: 1px; width: 5.1%; background: rgb(255, 255, 255);"></div>
+            <div style="position: absolute; top: 50.2%; left: 41.75%; height: 1px; width: 5%; background: rgb(255, 255, 255);"></div>
+
+            <div>
+                <input type="checkbox" id="topics" name="topics" value="true" checked onclick="event.preventDefault(); alert('Sorry, in order for deliberAIde to work, you must select at least the topics for us to summarize.')" class="topics-checkbox">
+                <label for="topics">Topics</label>
+            </div><br><br><br>
+            <div style="display: flex; justify-content: space-around; width: 100%">
+                <div style="margin-left: 300px">
+                    <input type="checkbox" id="viewpoints" name="viewpoints" value="true" {% if b_params.viewpoints_filter %}checked{% endif %}>
+                    <label for="viewpoints">Viewpoints</label>
+                </div>
+                <div style="margin-right: 300px;">
+                    <input type="checkbox" id="arguments" name="arguments" value="true" {% if b_params.arguments_filter %}checked{% endif %}>
+                    <label for="arguments">Arguments</label>
+                </div>
+            </div><br><br>
+            
+            {# Here are the checkboxes for filtering the targets<svg style="position: absolute; top: 49%; left: 51.2%; width: 100%; height: 30%;" xmlns="http://www.w3.org/2000/svg">
+                <path d="M25,0 Q50,50 25,100" stroke="#FFFFFF" fill="none" />
+            </svg> #}
+
+            <input type="hidden" id="should_scroll" name="should_scroll" value="{{ should_scroll }}">
+            <button type="submit" style="text-align:center" class="button main-button">deliberAIde now</button>
+            <div id="operationMessage"></div>
+        </div>
+    </form>
+    <div  style="text-align:center" id="output">
+        {% if error_message %}
+            <br><br><p>{{ error_message }}</p>
+        {% endif %}
+        {% if output %}
+        <hr>
+            {% if output.split is defined %}
+                <br><br><h1>{{ output }}</h1>
+            {% else %}
+                <div><br><br>
+                {% if mermaid_diagram %}
+                    <div class="mermaid">
+                        {{ mermaid_diagram }}
+                    </div>
+                {% else %}
+                    <h2> Here are the topics</h2><br>
+                    {% for topic in output.topics %}
+                        <p>{{topic}}</p>
+                    {% endfor %}
+                {% endif %}
+                </div>
+            {% endif %}
+        {% endif %}
+        
+    </div>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="{{ url_for('static', filename='js/autoscroll.js') }}"></script>  
+{% endblock %}
