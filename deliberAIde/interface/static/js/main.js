@@ -1,6 +1,8 @@
 $(document).ready(function(){
+    var socket = io.connect('http://localhost:5000/');  // Connect to the server-side socket. Adjust the URL as necessary.
+
     $('.main-button').click(function(e){
-        e.preventDefault(); // Prevent the form from being submitted normally
+        e.preventDefault();
 
         // Prepare the data to be sent
         var data = {
@@ -9,72 +11,75 @@ $(document).ready(function(){
             viewpoints: $('#viewpoints').is(':checked'),
             arguments: $('#arguments').is(':checked'),
         };
+
         console.log(data);
 
-        // Send the AJAX request
-        $.ajax({
-            url: '/process_mission',
-            type: 'POST',
-            contentType: 'application/json',  // tell the server you're sending JSON
-            data: JSON.stringify(data),
-            success: function(response){
-                // Initiate a new event source
-            console.log("SUCCESS RESPONSE: ", response);
-            const source = new EventSource("/process_mission");
-            // When a message is received, handle it
-            source.onmessage = function(event) {
-                let jsonString = event.data.replace('data: ', '').trim();
-                var response = JSON.parse(jsonString);
-                console.log(response);
-
-                if(response.error) {
-                    alert(response.error);
-                    source.close();  // Close the connection if an error occurs
-                    return;
-                }
-
-                if(response.topics) {
-                    // append topics to the output div
-                    var topicsHTML = '<h2> Here are the topics:</h2><br>';
-                    $.each(response.topics, function(i, topic){
-                        topicsHTML += '<p>' + topic + '</p>';
-                    });
-                    $('#output').append(topicsHTML);
-                    console.log('topics appended');
-                }
-
-                if(response.viewpoints) {
-                    // append viewpoints to the output div
-                    var viewpointsHTML = '<h2> Here are the viewpoints:</h2><br>';
-                    $.each(response.viewpoints, function(i, viewpoint){
-                        viewpointsHTML += '<p>' + viewpoint + '</p>';
-                    });
-                    $('#output').append(viewpointsHTML);
-                    console.log('viewpoints appended');
-                }
-
-                if(response.arguments) {
-                    // append arguments to the output div
-                    var argumentsHTML = '<h2> Here are the arguments:</h2><br>';
-                    $.each(response.arguments, function(i, argument){
-                        argumentsHTML += '<p>' + argument + '</p>';
-                    });
-                    $('#output').append(argumentsHTML);
-                    console.log('arguments appended');
-                }
-            };
-
-            // When an error occurs, handle it
-            source.onerror = function(event) {
-                console.error("EventSource failed:", event);
-                source.close();  // Close the connection if an error occurs
-            };
-        },
-        error: function(xhr, status, error){
-            console.log("Error: " + error);
-
-        }
+        // Emit the button_called event, sending the data
+        socket.emit('button_called', data);
     });
-    console.log('ajax request sent');
-});
+
+    // Listen for update events
+    socket.on('update', function(data) {
+        console.log("Received data: ", data);
+        // Do something with the data. This depends on the structure of your data.
+        if(data.topics) {
+            // append topics to the output div
+            var topicsHTML = '<br><h2> Here are the topics:</h2>';
+            topicsHTML += '<p>' + data.topics.main_topic + '</p>';
+            $('#output').append(topicsHTML);
+            console.log('topics appended');
+        }
+        if(data.viewpoints) {
+            // Append viewpoints to the output div
+            var viewpointsHTML = '<h2> Here are the viewpoints:</h2><br>';
+        
+            // Iterate over the viewpoints array
+            $.each(data.viewpoints.viewpoints, function(index, viewpointObj){
+                // Access viewpoint and append to HTML
+                var viewpoint = viewpointObj.viewpoint;
+                console.log("viewpoint here is: ", viewpoint);
+                viewpointsHTML += '<p>' + viewpoint + '</p>';
+                
+                // Check for any sub-viewpoints and append
+                var subViewpoints = viewpointObj.sub_viewpoints;
+                $.each(subViewpoints, function(index, subViewpointObj){
+                    var subViewpoint = subViewpointObj.viewpoint;
+                    console.log("Subviewpoint here is: ", subViewpoint);
+                    viewpointsHTML += '<p>---' + subViewpoint + '</p>';
+                });
+            });
+        
+            $('#output').append(viewpointsHTML);
+            console.log('viewpoints appended');
+        }
+        
+        if(data.arguments) {
+            // Append arguments to the output div
+            var argumentsHTML = '<h2> Here are the arguments:</h2><br>';
+        
+            // Iterate over the viewpoints array
+            $.each(data.arguments.viewpoints, function(index, viewpointObj){
+                // Access viewpoint
+                //var viewpoint = viewpointObj.viewpoint;
+                // console.log("viewpoint here is: ", viewpoint);
+                // argumentsHTML += '<p><strong>' + viewpoint + '</strong></p>';
+                
+                // Access and append each argument for the viewpoint
+                var arguments = viewpointObj.arguments;
+                $.each(arguments, function(index, argumentObj){
+                    var argumentSummary = argumentObj.summary;
+                    console.log("Argument summary here is: ", argumentSummary);
+                    argumentsHTML += '<p>-- ' + argumentSummary + '</p>';
+                });
+            });
+        
+            $('#output').append(argumentsHTML);
+            console.log('arguments appended');
+        }
+        
+    // Listen for error events
+    socket.on('error', function(data) {
+        console.log("Error: " + data.error);
+    });
+    });
 });

@@ -1,50 +1,98 @@
+#topics json to one or multiple Mermaid mindmaps (if multiple topics) that have to be rendered separately
+def topics_json_to_mermaid_mindmap(output: dict):
+    mermaid_graphs = []
+    main_topics = output.get('main_topics') or [output.get('main_topic')]
+    if main_topics:
+        for topic in main_topics:
+            mermaid_graph = f'mindmap\n  root(({topic}))\n'
+            mermaid_graph += '\n'
+            mermaid_graphs.append(mermaid_graph)
+    return mermaid_graphs
 
-def json_to_mermaid(output: dict):
-    def process_viewpoint(name, viewpoint, parent=None):
-        nonlocal counter
-        node_id = f"N{counter}"
-        counter += 1
-        nodes[node_id] = name
-        if parent is not None:
-            edges.append(f"{parent} --> {node_id}")
-        if isinstance(viewpoint, dict):
-            for sub_viewpoint, content in viewpoint.items():
-                process_viewpoint(sub_viewpoint, content, parent=node_id)
+#viewpoints json to one or multiple Mermaid mindmaps (if multiple viewpoints) that have to be rendered separately
+def views_json_to_mermaid_mindmap(output: dict):
+    mermaid_graphs = []
 
-    counter = 0
-    nodes = {}
-    edges = []
-    for topic, viewpoints in output.items():
-        topic_id = f"N{counter}"
-        nodes[topic_id] = topic
-        counter += 1
-        for viewpoint, content in viewpoints.items():
-            process_viewpoint(viewpoint, content, parent=topic_id)
+    def process_viewpoints(viewpoints, indent='    '):
+        mermaid_graph = ''
+        for viewpoint in viewpoints:
+            if isinstance(viewpoint, str):
+                mermaid_graph += f'{indent}{viewpoint}\n'
+            elif isinstance(viewpoint, dict):
+                viewpoint_text = viewpoint.get('viewpoint') or viewpoint.get('sub_viewpoint')
+                if viewpoint_text:
+                    mermaid_graph += f'{indent}{viewpoint_text}\n'
+                    arguments = viewpoint.get('arguments')
+                    if arguments:
+                        if isinstance(arguments, list):
+                            for argument in arguments:
+                                mermaid_graph += f'{indent}    [{argument}]\n'
+                        else:
+                            mermaid_graph += f'{indent}    [{arguments}]\n'
+                    sub_viewpoints = viewpoint.get('sub_viewpoints') or []
+                    mermaid_graph += process_viewpoints(sub_viewpoints, indent + '    ')
+        return mermaid_graph
 
-    mermaid_graph = "graph TB\n"
-    for node_id, node_name in nodes.items():
-        mermaid_graph += f'  {node_id}[{node_name}]\n'
-    for edge in edges:
-        mermaid_graph += f'  {edge}\n'
-    for i in range(len(edges)):
-        mermaid_graph += f"  linkStyle {i} stroke:#2ecd71,stroke-width:2px;\n"
-    return mermaid_graph
+    if 'main_topics' in output:
+        main_topics = output.get('main_topics')
+        for topic in main_topics:
+            topic_text = topic.get('topic')
+            if topic_text:
+                mermaid_graph = f'mindmap\n  root(({topic_text}))\n'
+                viewpoints = topic.get('viewpoints') or []
+                mermaid_graph += process_viewpoints(viewpoints)
+                mermaid_graph += '\n'
+                mermaid_graphs.append(mermaid_graph)
+    else:
+        main_topic = output.get('main_topic')
+        if main_topic:
+            mermaid_graph = f'mindmap\n  root(({main_topic}))\n'
+            viewpoints = output.get('viewpoints') or []
+            mermaid_graph += process_viewpoints(viewpoints)
+            mermaid_graph += '\n'
+            mermaid_graphs.append(mermaid_graph)
+    return mermaid_graphs
 
-def dict_to_mermaid(nested_dict, parent_node=None, mermaid_str=''):
-    # Base case: if the nested_dict is not a dictionary, return the accumulated string
-    if not isinstance(nested_dict, dict):
-        return mermaid_str
+#Arguments mindmap - working well and displaying arguments for sub-viewpoints
+def args_json_to_mermaid_mindmap(output: dict):
+    mermaid_graphs = []
 
-    # Recursive case: for each item in the dictionary, add a line to the Mermaid string and recurse on the value
-    for key, value in nested_dict.items():
-        # Create a node name by replacing spaces with underscores (Mermaid node IDs can't have spaces)
-        node_name = key.replace(' ', '_')
-        
-        # If there is a parent node, create an arrow from the parent node to this node
-        if parent_node is not None:
-            mermaid_str += f'  {parent_node} --> {node_name}\n'
-        
-        # Recurse on the value, using the current key as the parent node for the next level
-        mermaid_str = dict_to_mermaid(value, parent_node=node_name, mermaid_str=mermaid_str)
-    
-    return mermaid_str
+    def process_viewpoints(viewpoints, indent='    '):
+        mermaid_graph = ''
+        for viewpoint in viewpoints:
+            if isinstance(viewpoint, str):
+                mermaid_graph += f'{indent}{viewpoint}\n'
+            elif isinstance(viewpoint, dict):
+                viewpoint_text = viewpoint.get('viewpoint') or viewpoint.get('sub_viewpoint')
+                if viewpoint_text:
+                    mermaid_graph += f'{indent}{viewpoint_text}\n'
+                    arguments = viewpoint.get('arguments')
+                    if arguments:
+                        if isinstance(arguments, list):
+                            for argument in arguments:
+                                mermaid_graph += f'{indent}    [{argument}]\n'
+                        else:
+                            mermaid_graph += f'{indent}    [{arguments}]\n'
+                    sub_viewpoints = viewpoint.get('sub_viewpoints') or []
+                    mermaid_graph += process_viewpoints(sub_viewpoints, indent + '    ')
+        return mermaid_graph
+
+    if 'main_topics' in output:
+        main_topics = output.get('main_topics')
+        for topic in main_topics:
+            topic_text = topic.get('topic')
+            if topic_text:
+                mermaid_graph = f'mindmap\n  root(({topic_text}))\n'
+                viewpoints = topic.get('viewpoints') or []
+                mermaid_graph += process_viewpoints(viewpoints)
+                mermaid_graph += '\n'
+                mermaid_graphs.append(mermaid_graph)
+    else:
+        main_topic = output.get('main_topic')
+        if main_topic:
+            mermaid_graph = f'mindmap\n  root(({main_topic}))\n'
+            viewpoints = output.get('viewpoints') or []
+            mermaid_graph += process_viewpoints(viewpoints)
+            mermaid_graph += '\n'
+            mermaid_graphs.append(mermaid_graph)
+    return mermaid_graphs

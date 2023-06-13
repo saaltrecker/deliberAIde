@@ -2,37 +2,74 @@
 topics_json = {'main_topic': 'Animal testing in medical research'}
 
 viewpoints_by_topics = {'main_topic': 'Animal testing in medical research', 
-                   'viewpoints': 
-                       {'Necessity for medical advancements': {}, 
-                        'Ethical concerns': {}, 
-                        'Alternatives to animal testing': {}, 
-                        'Regulation and minimization': 
-                            {'sub-viewpoints': {'Transparency and accountability': {}
-                                                }
-                                }
-                       }
-}
+                        'viewpoints': [
+                            {'viewpoint': 'Necessity for medical advancements', 
+                             'sub_viewpoints': []}, 
+                            {'viewpoint': 'Ethical concerns and animal welfare', 
+                             'sub_viewpoints': []}, 
+                            {'viewpoint': 'Alternatives to animal testing', 
+                             'sub_viewpoints': []}, 
+                            {'viewpoint': 'Regulation and minimization', 
+                             'sub_viewpoints': []}, 
+                            {'viewpoint': 'Transparency and accountability', 
+                             'sub_viewpoints': []}
+                        ]
+        }
 
-arguments_by_viewpoints = {'arguments': {'main_topic': 'Animal testing in medical research', 
-                  'viewpoints': 
-                      {'Necessity for medical advancements': 
-                          {'arguments': ['Contributions to numerous medical advancements', 'Development of life-saving treatments']}, 
-                          'Ethical concerns': 
-                              {'arguments': ['Animals deserve compassionate treatment', 'Animals should not suffer for human benefits']}, 
-                              'Alternatives to animal testing': {'arguments': ['In vitro testing and computer simulations as reliable alternatives', 'Prioritizing development and adoption of alternatives']}, 
-                              'Regulation and minimization': 
-                                  {'sub-viewpoints': {'Transparency and accountability': 
-                                      {'arguments': ['Need for clear justifications for animal use', 'Ensuring humane conduct in animal testing']}
-                                      }
-                                }
+arguments_by_viewpoints =  {"main_topic": "Animal testing in medical research",
+        "viewpoints": [
+            {
+                "viewpoint": "Necessity for medical advancements",
+                "sub_viewpoints": [],
+                "arguments": [
+                    {
+                        "summary": "Animal testing contributes to numerous medical advancements and development of life-saving treatments"
                     }
-                }
-}
+                ]
+            },
+            {
+                "viewpoint": "Ethical concerns and animal welfare",
+                "sub_viewpoints": [],
+                "arguments": [
+                    {
+                        "summary": "Animals deserve compassionate treatment and should not suffer for human benefits"
+                    }
+                ]
+            },
+            {
+                "viewpoint": "Alternatives to animal testing",
+                "sub_viewpoints": [],
+                "arguments": [
+                    {
+                        "summary": "In vitro testing and computer simulations can provide reliable results without harming animals"
+                    }
+                ]
+            },
+            {
+                "viewpoint": "Regulation and minimization",
+                "sub_viewpoints": [],
+                "arguments": [
+                    {
+                        "summary": "Striking a balance between scientific progress and animal welfare is crucial"
+                    }
+                ]
+            },
+            {
+                "viewpoint": "Transparency and accountability",
+                "sub_viewpoints": [],
+                "arguments": [
+                    {
+                        "summary": "Researchers should provide clear justifications for using animals and ensure humane conduct"
+                    }
+                ]
+            }
+        ]
+    }
 
 def get_topics(transcript: str):
     return topics_json
 
 def get_viewpoints_by_topic(viewpoints, transcript: str):
     return viewpoints_by_topics
-def get_arguments_by_viewpoint(viewpoints: str):
+def get_arguments_by_viewpoint(text, viewpoints: str):
     return arguments_by_viewpoints
