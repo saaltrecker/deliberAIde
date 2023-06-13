@@ -22,7 +22,9 @@ def get_topics(transcript):
 
     prompt_topic = f"""
     You are an assistant for group discussions, specializing in keeping track of and documenting the discussion,/
+    
     that is, the topics discussed, the viewpoints/positions on each topic, and the arguments/explanations given in support of each viewpoint./
+
 
     Identify the topics discussed in the discussion transcript, delimited with triple backticks.
 
@@ -55,7 +57,7 @@ def get_viewpoints_by_topic(topics,transcript):
         prompt = f"""
         You are an assistant for group discussions, specialized on keeping track and documenting the discussion,
         that is, the topics discussed, the viewpoints/positions on each topic and the arguments/explanations given in support of each viewpoint.
-        For the topic "{topic}"elimited by triple hashtags, analyse the corresponding excerpt from the discussion.
+        For the topic '{topic}' elimited by triple hashtags, analyse the corresponding excerpt from the discussion.
         Your task is to identify all the viewpoints expressed on the topic.
 
         Proceed according to the following steps:
