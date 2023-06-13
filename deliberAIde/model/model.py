@@ -24,10 +24,10 @@ def get_topics(transcript):
     You are an assistant for group discussions, specializing in keeping track of and documenting the discussion,/
     that is, the topics discussed, the viewpoints/positions on each topic, and the arguments/explanations given in support of each viewpoint./
 
-    Identify the one or several main topics discussed in the discussion transcript, delimited with triple backticks. If there are multiple identified topics, but they all center around the same main topic, only record the main topic.
+    Identify the one or several main topics discussed in the discussion transcript, delimited with triple backticks. If there are multiple identified topics, but they all center around the same main topic, only record the main topic. Don't record sub-topics.
 
     Provide the output in JSON-format.
-
+    
     Review transcript: '''{transcript}'''
     """
 
@@ -35,6 +35,8 @@ def get_topics(transcript):
     topics_json = json.loads(topics)
 
     return topics_json
+
+# Function for getting completion from OpenAI instructing model to identify viewpoints per topic based on output from get_topics
 
 # Function for getting completion from OpenAI instructing model to identify viewpoints per topic based on output from get_topics
 
@@ -61,7 +63,7 @@ def get_viewpoints_by_topic(topics_json,transcript):
     Step 3: Disregard viewpoints that are not relevant to the current topic or more relevant to another topic. Only if a viewpoint is equally relevant to multiple topics, include it under all relevant topics.
     Step 4: Identify any linkages between viewpoints that build upon each other or propose solutions to identified issues. For instance, if a viewpoint such as 'Media literacy and critical thinking' is expressed as a solution to the issue identified in another viewpoint like 'Concerns about misinformation', classify it as a sub-viewpoint of the latter. Represent these sub-viewpoints appropriately within the hierarchical structure of the result dictionary.
     Step 5: Identify viewpoints that convey essentially the same stance on the topic. For example, viewpoints like 'Lack of regulation and transparency' and 'Need for better regulation' express similar concerns regarding the need for increased regulation in the domain. In such cases, merge these viewpoints into a single unified viewpoint that encapsulates both perspectives. Ensure this is reflected in the summary of viewpoints in the result dictionary.
-    Step 6: Append the topics-dictionary with the identified and summarized viewpoints as sub-keys.Format the dictionary in JSON-format.
+    Step 6: Append the topics-dictionary with the identified and summarized viewpoints and sub-viewpoints.Format the dictionary in JSON-format with the appropriate keys and sub-keys for topics,viewpoints and sub-viewpoints.
 
     Only include the appended dictionary in your response.
 
