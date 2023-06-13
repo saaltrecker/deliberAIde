@@ -1,18 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://rsms.me/">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/vectors.css') }}">
     {% block head %}{% endblock %}
 </head>
 <body>
+    <div>
+        <div id="header">
+            <a href="{{ url_for('use') }}">How to Use</a>
+            <a href="{{ url_for('home') }}" id="deliberAIde">deliberAIde</a>
+            <a href="{{ url_for('mission') }}">Our Mission</a>
+        </div>
+
+    </div>
     <div class="container">
         {% block body %}{% endblock %}
     </div>
     
 </body>
+<footer class="footer">
+    <div class="container">
+      <p>&copy; 2023 deliberAIde.</p>
+    </div>
+  </footer>
 </html>
