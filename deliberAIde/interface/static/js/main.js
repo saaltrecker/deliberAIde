@@ -4,9 +4,11 @@ $(document).ready(function(){
     $('.main-button').click(function(e){
         e.preventDefault();
 
+        $('#output').html('');  // Clear the output div
+
         // Prepare the data to be sent
         var data = {
-            text: $('[name=text]').val(),
+            text: $('input[name=text]').val(),
             topics: $('#topics').is(':checked'),
             viewpoints: $('#viewpoints').is(':checked'),
             arguments: $('#arguments').is(':checked'),
@@ -16,6 +18,9 @@ $(document).ready(function(){
 
         // Emit the button_called event, sending the data
         socket.emit('button_called', data);
+
+        // Set the min-height property of the #output div
+        $('#output').css('min-height', '500px');
     });
 
     // Listen for update events
@@ -23,15 +28,19 @@ $(document).ready(function(){
         console.log("Received data: ", data);
         // Do something with the data. This depends on the structure of your data.
         if(data.topics) {
+            var topicsDiv = $('<div>');
             // append topics to the output div
             var topicsHTML = '<br><h2> Here are the topics:</h2>';
             topicsHTML += '<p>' + data.topics.main_topic + '</p>';
-            $('#output').append(topicsHTML);
+            topicsDiv.html(topicsHTML);
+            //$('#output').append(topicsHTML);
+            topicsDiv.hide().appendTo('#output').fadeIn(1000);
             console.log('topics appended');
         }
         if(data.viewpoints) {
             // Append viewpoints to the output div
-            var viewpointsHTML = '<h2> Here are the viewpoints:</h2><br>';
+            var viewpointsDiv = $('<div>');
+            var viewpointsHTML = '<br><h2> Here are the viewpoints:</h2>';
         
             // Iterate over the viewpoints array
             $.each(data.viewpoints.viewpoints, function(index, viewpointObj){
@@ -48,15 +57,17 @@ $(document).ready(function(){
                     viewpointsHTML += '<p>---' + subViewpoint + '</p>';
                 });
             });
-        
-            $('#output').append(viewpointsHTML);
+            
+            viewpointsDiv.html(viewpointsHTML);
+            //$('#output').append(viewpointsHTML);
+            viewpointsDiv.hide().appendTo('#output').fadeIn(1000);
+            //$('#output').hide().fadeIn(1000);  // Add this line
             console.log('viewpoints appended');
-        }
-        
+        }   
         if(data.arguments) {
             // Append arguments to the output div
-            var argumentsHTML = '<h2> Here are the arguments:</h2><br>';
-        
+            var argumentsHTML = '<br><h2> Here are the arguments:</h2>';
+            var argumentsDiv = $('<div>');
             // Iterate over the viewpoints array
             $.each(data.arguments.viewpoints, function(index, viewpointObj){
                 // Access viewpoint
@@ -72,10 +83,17 @@ $(document).ready(function(){
                     argumentsHTML += '<p>-- ' + argumentSummary + '</p>';
                 });
             });
-        
-            $('#output').append(argumentsHTML);
+            argumentsDiv.html(argumentsHTML);  
+            //$('#output').append(argumentsHTML);
+            argumentsDiv.hide().appendTo('#output').fadeIn(1000);
+            //$('#output').hide().fadeIn(1000);  // Add this line for fade in
             console.log('arguments appended');
         }
+        //var output = document.getElementById('output'); Old scroll
+        //output.scrollIntoView({behavior: "smooth"});
+        $('html, body').animate({
+            scrollTop: $("#output").offset().top
+        }, 2000); // 2000 milliseconds for scrolling
         
     // Listen for error events
     socket.on('error', function(data) {

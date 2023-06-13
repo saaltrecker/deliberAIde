@@ -98,7 +98,6 @@ def handle_button_called(data):
     topics_filter = data.get('topics', False)
     viewpoints_filter = data.get('viewpoints', False)
     arguments_filter = data.get('arguments', False)
-    should_scroll = 'True'
     
     #b_params = dict_create(should_scroll=should_scroll, text=text, topics_filter=topics_filter, 
                             #viewpoints_filter=viewpoints_filter, arguments_filter=arguments_filter)
@@ -106,7 +105,7 @@ def handle_button_called(data):
     print(f"HERE ARE THE DATA: {data}")
     if topics_filter:
         try:
-            #socketio.sleep(2)
+            socketio.sleep(3)
             topics = get_topics(text)
             print(f"TOPICS COLLECTED: {topics}")
             emit('update', {"topics": topics})  # Send topics
@@ -116,7 +115,7 @@ def handle_button_called(data):
 
     if viewpoints_filter:
         try:
-            #socketio.sleep(2)
+            socketio.sleep(3)
             viewpoints = get_viewpoints_by_topic(topics, text)
             print(f"VIEWS COLLECTED: {viewpoints}")
             emit('update', {"viewpoints": viewpoints})  # Send viewpoints
@@ -128,7 +127,7 @@ def handle_button_called(data):
         try:
             if not viewpoints: 
                 viewpoints = get_viewpoints_by_topic(topics, text)
-            #socketio.sleep(2)
+            socketio.sleep(3)
             arguments = get_arguments_by_viewpoint(viewpoints, text)
             print(f"ARGS COLLECTED: {arguments}")
             emit('update', {"arguments": arguments})  # Send arguments
