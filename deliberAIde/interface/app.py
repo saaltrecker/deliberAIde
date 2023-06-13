@@ -2,9 +2,9 @@
 import sys
 sys.path.append("../")
 #from model.model import get_topics, get_viewpoints_by_topic, get_arguments_by_viewpoint # model functions
-from interface.test_data import get_topics, get_viewpoints_by_topic, get_arguments_by_viewpoint # test data functions
+from deliberAIde.interface.test_data import get_topics, get_viewpoints_by_topic, get_arguments_by_viewpoint # test data functions
 
-from interface.mermaid import json_to_mermaid, dict_to_mermaid
+from deliberAIde.interface.mermaid import json_to_mermaid, dict_to_mermaid
 from flask import Flask, render_template, request
 #from flask_ngrok import run_with_ngrok # !TODO (if we want to make it online and not just local)
 
