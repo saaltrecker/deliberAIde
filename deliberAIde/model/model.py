@@ -22,7 +22,9 @@ def get_topics(transcript):
 
     prompt_topic = f"""
     You are an assistant for group discussions, specializing in keeping track of and documenting the discussion,/
-    that is, the topics discussed, the viewpoints/positions on each topic, and the arguments/explanations given in support of each    viewpoint./
+    
+    that is, the topics discussed, the viewpoints/positions on each topic, and the arguments/explanations given in support of each viewpoint./
+
 
     Identify the topics discussed in the discussion transcript, delimited with triple backticks.
 
