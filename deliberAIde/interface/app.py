@@ -10,13 +10,13 @@ from interface.mermaid import json_to_mermaid, dict_to_mermaid
 from flask import Flask, render_template, request, redirect, jsonify, Response, stream_with_context
 #from flask_ngrok import run_with_ngrok # !TODO (if we want to make it online and not just local)
 
-app = Flask(__name__) # This is how we create an instance of the Flask class for our app. 
+app = Flask(__name__) # This is how we create an instance of the Flask class for our app.
 
 #run_with_ngrok(app)  # !TODO (if we want to make it online and not just local). Starts ngrok when app is run
 def dict_create(**kwargs):
     return kwargs
 
-@app.route('/', methods=['GET', 'POST']) # This is the home page route. This decorator 
+@app.route('/', methods=['GET', 'POST']) # This is the home page route. This decorator
                                         # tells Flask what URL should trigger our function (home, in this case).
 def home():
     b_params = dict_create(should_scroll='False', text='', topics_filter=None, 
@@ -27,12 +27,11 @@ def home():
         text = request.form['text'] # input transcript. Pass this text to your model and get the result
         # Filter Checkboxes
         topics_filter = request.form.get('topics') # checkbox topics. Fetches value of the checkbox
-        viewpoints_filter = request.form.get('viewpoints') # checkbox viewpoints. 
-        arguments_filter = request.form.get('arguments') # checkbox args. 
-        
+        viewpoints_filter = request.form.get('viewpoints') # checkbox viewpoints.
+        arguments_filter = request.form.get('arguments') # checkbox args.
+
         output = {}
         mermaid_diagram = None
-        
         b_params = dict_create(should_scroll=should_scroll, text=text, topics_filter=topics_filter, 
                                   viewpoints_filter=viewpoints_filter, arguments_filter=arguments_filter)
             
@@ -40,7 +39,7 @@ def home():
         if not text: # if no text is entered, return an error message saying input transcript
             return render_template('main.html', b_params=b_params,
                                    output="Sorry, I didn't detect a transcript. Please try again!")
-            
+
         if not (topics_filter or viewpoints_filter or arguments_filter): # if no filters are selected, return an error message saying select a filter
             return render_template('main.html', b_params=b_params,
                                    output="Sorry, it seems you haven't chosen any filters. Please try again!")
@@ -186,7 +185,5 @@ def process_mission():
 
     return Response(stream_with_context(generate()), mimetype='text/event-stream')
 
-
 if __name__ == '__main__':
     app.run(debug=True)
-    

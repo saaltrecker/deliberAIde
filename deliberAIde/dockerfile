@@ -1,0 +1,25 @@
+FROM python:3.10.6-buster
+
+
+RUN pip install --upgrade pip
+
+COPY model model
+COPY interface interface
+#COPY stream.py stream.py
+
+# First, pip install dependencies
+COPY requirements.txt requirements.txt
+RUN pip install --no-cache-dir -U pip setuptools wheel
+RUN pip install --use-pep517 -r requirements.txt
+RUN pip install streamlit
+
+RUN pip install --upgrade pip setuptools wheel
+
+
+# must develop requirements.txt
+RUN pip install -r requirements.txt
+
+
+# ...
+#CMD ["streamlit","run","stream.py"] # THIS TO DO
+CMD ["python","interface/app.py"] # THIS TO DO

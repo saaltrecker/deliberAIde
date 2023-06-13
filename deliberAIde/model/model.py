@@ -23,22 +23,22 @@ def get_topics(transcript):
     prompt_topic = f"""
     You are an assistant for group discussions, specializing in keeping track of and documenting the discussion,/
     that is, the topics discussed, the viewpoints/positions on each topic, and the arguments/explanations given in support of each viewpoint./
-    
+
     Identify the topics discussed in the discussion transcript, delimited with triple backticks.
-    
+
     Check the following steps but don't print each step only print what is asked:
-    
-    Step 1: Identify the topics discussed in the discussion transcript. Take the time to read the complete transcript, don't 
-            take words as a whole argument, analyze the complete argument and then decide on the topic.\ 
-    Step 2: Analyze each topic (if there is more than one), and merge those into only one main topic. 
-            If there are topics that are as important as the main topic, display them as a second topic but only if it is linked to the 
+
+    Step 1: Identify the topics discussed in the discussion transcript. Take the time to read the complete transcript, don't
+            take words as a whole argument, analyze the complete argument and then decide on the topic.\
+    Step 2: Analyze each topic (if there is more than one), and merge those into only one main topic.
+            If there are topics that are as important as the main topic, display them as a second topic but only if it is linked to the
     main topic of discussion in the transcript. Only in this case, you can display more topics.\
     Step 3: Extract the statements related to each topic.\
-    Step 4: State the necessary main topics of the entire transcript in a concise, descriptive sentence, 
+    Step 4: State the necessary main topics of the entire transcript in a concise, descriptive sentence,
             in up to 3 words for each topic.\
-    Step 5: Provide the output in a JSON format where the key is the topic and the value is a list of statements made by the 
+    Step 5: Provide the output in a JSON format where the key is the topic and the value is a list of statements made by the
             participants.\
-    
+
     Review transcript: '''{transcript}'''
     """
 
