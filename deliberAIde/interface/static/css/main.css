@@ -1,25 +1,20 @@
-:root { font-family: 'Inter', sans-serif; }
+:root { font-family: 'Roboto', sans-serif; }
 @supports (font-variation-settings: normal) {
   :root { font-family: 'Inter var', sans-serif; }
 }
 
-.checkbox-tree {
-    position: relative;
-    margin-left: 20px;
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Add this here */
+  font-size: 62,5%;
 }
 
-.checkbox-tree::before {
-    content: "";
-    position: absolute;
-    top: 15px;
-    left: -20px;
-    border-left: 2px solid #000;
-    height: 70px;
-}
 
 #header {
     width: 100vw; /* Viewport Width (100% of the viewport width) */
-    box-sizing: border-box;
     background-color: #89ab89;
     padding: 20px; /* vertical padding */
     text-align: center;
@@ -43,7 +38,7 @@
 
 /* Increase the font size of the deliberAIde link */
 #header #deliberAIde {
-    font-size: 24px; /* larger font size */
+    font-size: 30px; /* larger font size */
 }
 
 #header h1 {
@@ -59,11 +54,58 @@
     color: #ffffff;
 }
 
+
 body {
-    margin: 0;
-    padding: 0;
-    background-color: #000000;
-    color: #FFFFFF;
+  /* height: 100vh;*/
+  width: 100%; 
+  background: #0f2027; /* fallback for old browsers */
+  background: linear-gradient(to right,#495053, #202223, #000000);
+  display: flex;
+  flex-direction: column; /* Stack the content vertically */
+  min-height: 100vh; /* Make sure the body takes up the full viewport height */
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  /* height: 100vh; */
+  color: #fff;
+}
+
+.form__group {
+    margin: 0 auto; /* Horizontally center the element */
+    margin-bottom: 30px; /* Add some space below the element */
+    width: 90%; /* Adjust this value as per your needs */
+}
+
+.form__label {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.2rem;
+  margin-left: 2rem;
+  margin-top: 0.7rem;
+  display: block;
+  transition: all 0.3s;
+  transform: translateY(0rem);
+}
+
+.form__input {
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+  font-size: 1.0rem;
+	margin: 0 auto;
+  padding: 1.5rem 2rem;
+  border-radius: 0.2rem;
+  background-color: rgb(255, 255, 255);
+  border: none;
+  width: 90%;
+  display: block;
+  border-bottom: 0.3rem solid transparent;
+  transition: all 0.3s;
+}
+
+.form__input:placeholder-shown + .form__label {
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transform: translateY(-4rem);
+  transform: translateY(-4rem);
 }
 
 
@@ -99,13 +141,19 @@ h1 {
     background-color: #73bd76; /* adjust this to change the color of the button */
     transition: opacity 0.3s ease-in-out;
 }
+.main-button:active { /* :active pseudo-class selects the button when it's being clicked */
+    background-color: #5a995a; /* A darker green */
+    transform: scale(0.95); /* Makes the button slightly smaller */
+    transition: all 0.2s; /* Smoothens the transition */
+}
+
 
 #operationMessage {
     font-family: 'Helvetica Neue', sans-serif;
     font-size: 16px;
     color: #ffffff;
 }
-
+/* 
 @keyframes dots {
     0%, 20% {
         color: rgba(0,0,0,0);
@@ -129,7 +177,7 @@ h1 {
             .25em 0 0 white,
             .5em 0 0 white;
     }
-}
+} */
 
 #operationMessage:after {
     content: ' .';
@@ -188,12 +236,14 @@ input[type="checkbox"]:checked + label {
 
 .footer {
     background-color: #2d2d2d;
-    font-size: 15px;
-    padding: 20px;
+    font-size: 13px;
+    padding: 10px;
     text-align: center;
+    margin-top: auto; /* Push the footer down to the bottom */
   }
   
   
   .footer p {
     margin: 0;
   }
+
