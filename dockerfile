@@ -5,13 +5,13 @@ RUN pip install --upgrade pip
 
 COPY deliberAIde /deliberAIde
 COPY requirements.txt /requirements.txt
+COPY setup.py /setup.py
 #COPY stream.py stream.py
 
 # First, pip install dependencies
 # must develop requirements.txt
 RUN pip install -r requirements.txt
-RUN pip install flask
-RUN pip install gunicorn
+RUN pip install .
 
 # ...
 #CMD ["streamlit","run","stream.py"] # THIS TO DO
