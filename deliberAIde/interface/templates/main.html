@@ -41,15 +41,14 @@
             <div id="operationMessage"></div>
         </div>
     </form>
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-    
+    <hr>
+    <br><div style="text-align:center" id="status-message"></div>
     <div  style="text-align:center" id="output">
         {% if output %}
-            <hr>
-            <div id="status-message"></div>
             <br><br><p>{{ output }}</p>
         {% endif %}
     </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <script>mermaid.initialize({startOnLoad:true});</script>
 {% endblock %}
 

@@ -37,10 +37,10 @@ $(document).ready(function(){
             mermaid.init(undefined, topicsDiv);
             // Check if the mindmap is initialized
             console.log('topics mindmap initialized');
-            if (data.viewpoints_mindmap) {
+            if (data.viewpoints_filter) {
                 $('#status-message').text('Generating viewpoints...');
             }
-            else if (data.arguments_mindmap) {
+            else if (data.arguments_filter) {
                 $('#status-message').text('Generating arguments...');
             }
             else {
@@ -59,7 +59,7 @@ $(document).ready(function(){
             mermaid.init(undefined, viewpointsDiv);
             // Check if the mindmap is initialized
             console.log('viewpoints mindmap initialized');
-            if (data.arguments_mindmap) {
+            if (data.arguments_filter) {
                 $('#status-message').text('Generating arguments...');
             }
             else {
