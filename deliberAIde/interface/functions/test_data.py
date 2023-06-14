@@ -66,6 +66,46 @@ arguments_by_viewpoints =  {"main_topic": "Animal testing in medical research",
         ]
     }
 
+
+views_format_2 = {'main_topic': 'Youth violence in the community and potential solutions', 
+                  'viewpoints': 
+                      {'Mentoring programs': {}, 
+                       'Increased police presence': {}, 
+                       'Addressing social issues': {}, 
+                       'Support for families': {}, 
+                       'Improving schools': {}, 
+                       'Teaching healthy relationships and choices': {}
+                     }
+             }
+
+args_format_2 = {'main_topic': 'Youth violence in the community and potential solutions', 
+                 'viewpoints': 
+                     {'Mentoring programs': 
+                         {'arguments': 
+                             ['Mentoring programs can address social issues and provide guidance to youths']
+                             }, 
+                        'Increased police presence': 
+                            {'arguments': 
+                                ['A stronger police presence can deter youth violence']}, 
+                        'Addressing social issues': 
+                            {'arguments': 
+                                ['Tackling social issues can help reduce the root causes of youth violence']
+                                }, 
+                        'Support for families': 
+                            {'arguments': 
+                                ['Supporting families can improve family structure and reduce youth violence']
+                                }, 
+                        'Improving schools': 
+                            {'arguments': 
+                                ['Better-funded schools can offer quality education and extracurricular activities, reducing youth violence']
+                                }, 
+                        'Teaching healthy relationships and choices': 
+                            {'arguments': 
+                                ['Educating youths on healthy relationships and choices can counteract peer pressure and reduce violence']
+                                }
+                    }
+             }
+
 def get_topics(transcript: str):
     return topics_json
 
