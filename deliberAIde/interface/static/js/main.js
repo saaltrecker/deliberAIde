@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    var socket = io.connect('http://localhost:5000/');  // Connect to the server-side socket. Adjust the URL as necessary.
+    var socket = io.connect();  // Connect to the server-side socket. Adjust the URL as necessary.
 
     $('.main-button').click(function(e){
         e.preventDefault();
@@ -41,14 +41,14 @@ $(document).ready(function(){
             // Append viewpoints to the output div
             var viewpointsDiv = $('<div>');
             var viewpointsHTML = '<br><h2> Here are the viewpoints:</h2>';
-        
+
             // Iterate over the viewpoints array
             $.each(data.viewpoints.viewpoints, function(index, viewpointObj){
                 // Access viewpoint and append to HTML
                 var viewpoint = viewpointObj.viewpoint;
                 console.log("viewpoint here is: ", viewpoint);
                 viewpointsHTML += '<p>' + viewpoint + '</p>';
-                
+
                 // Check for any sub-viewpoints and append
                 var subViewpoints = viewpointObj.sub_viewpoints;
                 $.each(subViewpoints, function(index, subViewpointObj){
@@ -57,13 +57,13 @@ $(document).ready(function(){
                     viewpointsHTML += '<p>---' + subViewpoint + '</p>';
                 });
             });
-            
+
             viewpointsDiv.html(viewpointsHTML);
             //$('#output').append(viewpointsHTML);
             viewpointsDiv.hide().appendTo('#output').fadeIn(1000);
             //$('#output').hide().fadeIn(1000);  // Add this line
             console.log('viewpoints appended');
-        }   
+        }
         if(data.arguments) {
             // Append arguments to the output div
             var argumentsHTML = '<br><h2> Here are the arguments:</h2>';
@@ -74,7 +74,7 @@ $(document).ready(function(){
                 //var viewpoint = viewpointObj.viewpoint;
                 // console.log("viewpoint here is: ", viewpoint);
                 // argumentsHTML += '<p><strong>' + viewpoint + '</strong></p>';
-                
+
                 // Access and append each argument for the viewpoint
                 var arguments = viewpointObj.arguments;
                 $.each(arguments, function(index, argumentObj){
@@ -83,7 +83,7 @@ $(document).ready(function(){
                     argumentsHTML += '<p>-- ' + argumentSummary + '</p>';
                 });
             });
-            argumentsDiv.html(argumentsHTML);  
+            argumentsDiv.html(argumentsHTML);
             //$('#output').append(argumentsHTML);
             argumentsDiv.hide().appendTo('#output').fadeIn(1000);
             //$('#output').hide().fadeIn(1000);  // Add this line for fade in
@@ -94,7 +94,7 @@ $(document).ready(function(){
         $('html, body').animate({
             scrollTop: $("#output").offset().top
         }, 2000); // 2000 milliseconds for scrolling
-        
+
     // Listen for error events
     socket.on('error', function(data) {
         console.log("Error: " + data.error);

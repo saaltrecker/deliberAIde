@@ -1,12 +1,12 @@
 # Description: This is our main app functioning as the controller for our web app.
-#import sys
+import sys
 import time
 
 #sys.path.append("../")
 
 from deliberAIde.model.model import get_topics, get_viewpoints_by_topic, get_arguments_by_viewpoint # model functions
-from deliberAIde.interface.functions.test_data import get_topics, get_viewpoints_by_topic, get_arguments_by_viewpoint # test data functions
-from deliberaide.interface.functions.dict_create import dict_create
+#from deliberAIde.interface.functions.test_data import get_topics, get_viewpoints_by_topic, get_arguments_by_viewpoint # test data functions
+from deliberAIde.interface.functions.dict_create import dict_create
 from deliberAIde.interface.functions.mermaid import topics_json_to_mermaid_mindmap, views_json_to_mermaid_mindmap, args_json_to_mermaid_mindmap
 
 from flask import Flask, render_template#, request, redirect, jsonify, Response, stream_with_context
@@ -32,7 +32,7 @@ def handle_button_called(data):
     topics_filter = data.get('topics', False)
     viewpoints_filter = data.get('viewpoints', False)
     arguments_filter = data.get('arguments', False)
-    
+
     print(f"HERE ARE THE DATA: {data}")
     if topics_filter:
         try:
@@ -53,10 +53,10 @@ def handle_button_called(data):
             print("--- %s seconds ---" % (time.time() - start_time))
         except Exception as e:
             emit('error', {"error": f"Error getting viewpoints: {str(e)}"})  # Send error
-            
+
     if arguments_filter:
         try:
-            if not viewpoints: 
+            if not viewpoints:
                 viewpoints = get_viewpoints_by_topic(topics, text)
             socketio.sleep(3)
             arguments = get_arguments_by_viewpoint(viewpoints, text)
@@ -77,5 +77,4 @@ def mission():
     return render_template('mission.html')
 
 if __name__ == '__main__':
-    socketio.run(app)
-    
+    socketio.run(app, host="0.0.0.0", port=sys.argv[1], allow_unsafe_werkzeug=True)
