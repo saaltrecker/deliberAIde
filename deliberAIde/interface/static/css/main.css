@@ -108,6 +108,15 @@ body {
   transform: translateY(-4rem);
 }
 
+status-message {
+    font-family: 'Roboto', sans-serif;
+    font-size: 2rem;
+    margin-left: 2rem;
+    margin-top: 1.5rem;
+    display: block;
+    transition: all 0.3s;
+    transform: translateY(0rem);
+}
 
 h1 {
     color: #ffffff;
@@ -210,6 +219,7 @@ h1 {
     height: auto;
     max-width: 1500px; /* Or whatever size you want*/  
     margin: 0 auto;   /* This centers the diagram*/  
+    margin-top: 100px;  /* Adjust this for the top output */
     font-size: 100px;  /*Change the font size*/
 }
 

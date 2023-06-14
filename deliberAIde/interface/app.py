@@ -2,7 +2,7 @@
 import sys
 import time
 
-#sys.path.append("../")
+sys.path.append("../")
 
 from deliberAIde.model.model import get_topics, get_viewpoints_by_topic, get_arguments_by_viewpoint # model functions
 #from deliberAIde.interface.functions.test_data import get_topics, get_viewpoints_by_topic, get_arguments_by_viewpoint # test data functions
@@ -11,8 +11,6 @@ from deliberAIde.interface.functions.mermaid import topics_json_to_mermaid_mindm
 
 from flask import Flask, render_template#, request, redirect, jsonify, Response, stream_with_context
 from flask_socketio import SocketIO, emit
-
-
 
 app = Flask(__name__) # This is how we create an instance of the Flask class for our app.
 app.config['SECRET_KEY'] = '125r053'
@@ -27,7 +25,7 @@ def home():
 
 @socketio.on('button_called')
 def handle_button_called(data):
-    start_time = time.time()
+    start_time = time.time() #TODO: Comment out this time tracker
     text = data['text']
     topics_filter = data.get('topics', False)
     viewpoints_filter = data.get('viewpoints', False)
@@ -36,21 +34,35 @@ def handle_button_called(data):
     print(f"HERE ARE THE DATA: {data}")
     if topics_filter:
         try:
-            socketio.sleep(3)
+            #socketio.sleep(1.5) #TODO: Remove this sleep
             topics = get_topics(text)
             print(f"TOPICS COLLECTED: {topics}")
-            emit('update', {"topics": topics})  # Send topics
-            print("--- %s seconds ---" % (time.time() - start_time))
+
+            #emit('update', {"topics": topics})  # Send topics
+
+            emit('update', {"topics_mindmap": topics_json_to_mermaid_mindmap(topics),
+                            "viewpoints_filter": viewpoints_filter,
+                            "arguments_filter": arguments_filter})  # Send topics mermaid diagram
+
+            print("Here is the diagram code: ", topics_json_to_mermaid_mindmap(topics)) # Checking
+            print("--- %s seconds ---" % (time.time() - start_time)) #TODO: Comment out this time tracker
+
         except Exception as e:
             emit('error', {"error": f"Error getting topics: {str(e)}"})  # Send error
 
     if viewpoints_filter:
         try:
-            socketio.sleep(3)
+            #socketio.sleep(5) #TODO: Remove this sleep
             viewpoints = get_viewpoints_by_topic(topics, text)
             print(f"VIEWS COLLECTED: {viewpoints}")
-            emit('update', {"viewpoints": viewpoints})  # Send viewpoints
-            print("--- %s seconds ---" % (time.time() - start_time))
+
+            #emit('update', {"viewpoints": viewpoints})  # Send viewpoints
+
+            emit('update', {"viewpoints_mindmap": views_json_to_mermaid_mindmap(viewpoints),
+                            "arguments_filter": arguments_filter})  # Send viewpoints mermaid diagram
+
+            print("--- %s seconds ---" % (time.time() - start_time)) #TODO: Comment out this time tracker
+
         except Exception as e:
             emit('error', {"error": f"Error getting viewpoints: {str(e)}"})  # Send error
 
@@ -58,11 +70,14 @@ def handle_button_called(data):
         try:
             if not viewpoints:
                 viewpoints = get_viewpoints_by_topic(topics, text)
-            socketio.sleep(3)
+            #socketio.sleep(5) #TODO: Remove this sleep
             arguments = get_arguments_by_viewpoint(viewpoints, text)
             print(f"ARGS COLLECTED: {arguments}")
-            emit('update', {"arguments": arguments})  # Send arguments
-            print("--- %s seconds ---" % (time.time() - start_time))
+            #emit('update', {"arguments": arguments})  # Send arguments
+            emit('update', {"arguments_mindmap": args_json_to_mermaid_mindmap(arguments)})  # Send arguments mermaid diagram
+
+            print("Here is the diagram code: ", args_json_to_mermaid_mindmap(arguments)) # Checking
+            print("--- %s seconds ---" % (time.time() - start_time)) #TODO: Comment out this time tracker
         except Exception as e:
             emit('error', {"error": f"Error getting arguments: {str(e)}"})  # Send error
 
