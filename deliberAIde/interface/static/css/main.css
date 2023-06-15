@@ -12,6 +12,13 @@
   font-size: 62,5%;
 }
 
+.centered-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
 
 #header {
     width: 100vw; /* Viewport Width (100% of the viewport width) */
@@ -127,15 +134,14 @@ body {
 
 .form__group {
     margin: 0 auto; /* Horizontally center the element */
-    margin-bottom: 10px; /* Add some space below the element */
+    margin-bottom: 6px; /* Add some space below the element */
     width: 90%; /* Adjust this value as per your needs */
 }
 
 .form__label {
   font-family: 'Roboto', sans-serif;
   font-size: 1.2rem;
-  margin-left: 2rem;
-  margin-top: 0.7rem;
+  margin-top: 0.3rem;
   display: block;
   transition: all 0.3s;
   transform: translateY(0rem);
@@ -213,6 +219,10 @@ input[type="checkbox"]:checked + label {
 
 #viewpoints-filter, #arguments-filter {
     display: none;
+}
+
+.checkbox-container {
+    height: 200px; /* Adjust this value as necessary */
 }
 
 .button {

@@ -4,11 +4,10 @@ import time
 
 sys.path.append("../")
 
-#from deliberAIde.model.model import get_topics, get_viewpoints_by_topic, get_arguments_by_viewpoint # model functions
-from deliberAIde.interface.functions.test_data import get_topics, get_viewpoints_by_topic, get_arguments_by_viewpoint # test data functions
+from deliberAIde.model.model import get_topics, get_viewpoints_by_topic, get_arguments_by_viewpoint # model functions
+#from deliberAIde.interface.functions.test_data import get_topics, get_viewpoints_by_topic, get_arguments_by_viewpoint # test data functions
 from deliberAIde.interface.functions.dict_create import dict_create
 from deliberAIde.interface.functions.mermaid import topics_json_to_mermaid_mindmap, views_json_to_mermaid_mindmap, args_json_to_mermaid_mindmap
-
 
 from flask import Flask, render_template#, request, redirect, jsonify, Response, stream_with_context
 from flask_socketio import SocketIO, emit

@@ -64,6 +64,9 @@ $(document).ready(function(){
 
         // Set the min-height property of the #output div
         $('#output').css('min-height', '400px');
+        $('html, body').animate({
+            scrollTop: $("#output").offset().top
+        }, 2000); // 2000 milliseconds for scrolling
         $('#status-message').text('Generating topics...');
     });
 
