@@ -1,99 +1,147 @@
 $(document).ready(function(){
-  var socket = io.connect();  // Connect to the server-side socket. Adjust the URL as necessary.
+    var socket = io.connect();  // Connect to the server-side socket. Adjust the URL as necessary.
 
-  $('.main-button').click(function(e){
-      e.preventDefault();
+    $('#topics').change(function() {
+        if (this.checked) {
+            $('#viewpoints-filter').fadeIn();
+        } else {
+            $('#viewpoints-filter').fadeOut();
+            $('#viewpoints').prop('checked', false);
+            $('#arguments-filter').fadeOut();
+            $('#arguments').prop('checked', false);
+        }
+    });
+        
+    $('#viewpoints').change(function() {
+        if (this.checked) {
+            $('#arguments-filter').fadeIn();
+        } else {
+            $('#arguments-filter').fadeOut();
+            $('#arguments').prop('checked', false);
+        }
+    });  
+    
+    $('.main-button').click(function(e){
+        e.preventDefault();
 
-      $('#output').html('');  // Clear the output div
+        $('#output').html('');  // Clear the output div
 
-      // Prepare the data to be sent
-      var data = {
-          text: $('input[name=text]').val(),
-          topics: $('#topics').is(':checked'),
-          viewpoints: $('#viewpoints').is(':checked'),
-          arguments: $('#arguments').is(':checked'),
-      };
+        // Prepare the data to be sent
+        var data = {
+            text: $('input[name=text]').val(),
+            topics: $('#topics').is(':checked'),
+            viewpoints: $('#viewpoints').is(':checked'),
+            arguments: $('#arguments').is(':checked'),
+        };
+        //console.log(data);
 
-      console.log(data);
-
-      // Emit the button_called event, sending the data
-      socket.emit('button_called', data);
-
-      // Set the min-height property of the #output div
-      $('#output').css('min-height', '400px');
-      $('#status-message').text('Generating topics...');
-  });
-
-  // Listen for update events
-  socket.on('update', function(data) {
-      console.log("Received data: ", data);
-      // Do something with the data. This depends on the structure of your data.
-      if (data.topics_mindmap) {
-          console.log('topics mindmap detected');
-          // Append topics mindmap to the output div
-          var topicsDiv = $('<div class="mermaid">');
-          topicsDiv.text(data.topics_mindmap);
-          topicsDiv.hide().appendTo('#output').fadeIn(1000);
-          mermaid.init(undefined, topicsDiv);
-          // Check if the mindmap is initialized
-          console.log('topics mindmap initialized');
-          if (data.viewpoints_filter) {
-              $('#status-message').text('Generating viewpoints...');
-          }
-          else if (data.arguments_filter) {
-              $('#status-message').text('Generating arguments...');
-          }
-          else {
-              $('#status-message').text('Completed.');
-          }
-      }
-
-      if (data.viewpoints_mindmap) {
-          $('#output').html('');  // Clear the output div
-          console.log('viewpoints mindmap detected');
-          // Append topics mindmap to the output div
-          var viewpointsDiv = $('<div class="mermaid">');
-          viewpointsDiv.text(data.viewpoints_mindmap);
-          console.log(viewpointsDiv);
-          viewpointsDiv.hide().appendTo('#output').fadeIn(1000);
-          mermaid.init(undefined, viewpointsDiv);
-          // Check if the mindmap is initialized
-          console.log('viewpoints mindmap initialized');
-          if (data.arguments_filter) {
-              $('#status-message').text('Generating arguments...');
-          }
-          else {
-              $('#status-message').text('Completed.');
-          }
-      }
-
-      if (data.arguments_mindmap) {
-          $('#output').html('');  // Clear the output div
-          console.log('arguments mindmap detected');
-          console.log(data.arguments_mindmap);
-          // Append topics mindmap to the output div
-          var argumentsDiv = $('<div class="mermaid">');
-          argumentsDiv.text(data.arguments_mindmap);
-          console.log(argumentsDiv);
-          argumentsDiv.hide().appendTo('#output').fadeIn(1000);
-          mermaid.init(undefined, argumentsDiv);
-          // Check if the mindmap is initialized
-          console.log('arguments mindmap initialized');
-          $('#status-message').text('Completed.')
-      }
+        // If no checkboxes are checked, show a notification
+        if (!$('.checkbox-div :checkbox:checked').length) {
+            showNotification("You must at least select topics for deliberAIde to work.");
+            return;  // Exit the function
+        }
+        // Check if the text is empty or if the length is less than the required minimum
 
 
-      $('html, body').animate({
-          scrollTop: $("#output").offset().top
-      }, 2000); // 2000 milliseconds for scrolling
+        if (!data.text || data.text.trim().length === 0) {
+            console.log("About to show notification...");
+            showNotification("A transcript must be entered for deliberAIde to assist you.");
+            return;  // Exit the function
+        }
+        if (data.text.trim().length < 100) {
+            console.log("About to show notification...");
+            showNotification("Sorry, you must enter a longer transcript for deliberAIde to assist you.");
+            return;  // Exit the function
+        }
 
-  // Listen for error events
-  socket.on('error', function(data) {
-      console.log("Error: " + data.error);
-  });
-  });
-});
+        // Emit the button_called event, sending the data
+        socket.emit('button_called', data);
 
+        // Set the min-height property of the #output div
+        $('#output').css('min-height', '400px');
+        $('#status-message').text('Generating topics...');
+    });
+
+    // Listen for update events
+    socket.on('update', function(data) {
+        console.log("Received data: ", data);
+        // Do something with the data. This depends on the structure of your data.
+        if (data.topics_mindmap) {
+            console.log('topics mindmap detected');
+            // Append topics mindmap to the output div
+            var topicsDiv = $('<div class="mermaid">');
+            topicsDiv.text(data.topics_mindmap);
+            topicsDiv.hide().appendTo('#output').fadeIn(1000);
+            mermaid.init(undefined, topicsDiv);
+            // Check if the mindmap is initialized
+            console.log('topics mindmap initialized');
+            if (data.viewpoints_filter) {
+                $('#status-message').text('Generating viewpoints...');
+            }
+            else if (data.arguments_filter) {
+                $('#status-message').text('Generating arguments...');
+            }
+            else {
+                $('#status-message').text('Completed.');
+            }
+        }
+    
+        if (data.viewpoints_mindmap) {
+            $('#output').html('');  // Clear the output div
+            console.log('viewpoints mindmap detected');
+            // Append topics mindmap to the output div
+            var viewpointsDiv = $('<div class="mermaid">');
+            viewpointsDiv.text(data.viewpoints_mindmap);
+            console.log(viewpointsDiv);
+            viewpointsDiv.hide().appendTo('#output').fadeIn(1000);
+            mermaid.init(undefined, viewpointsDiv);
+            // Check if the mindmap is initialized
+            console.log('viewpoints mindmap initialized');
+            if (data.arguments_filter) {
+                $('#status-message').text('Generating arguments...');
+            }
+            else {
+                $('#status-message').text('Completed.');
+            }
+        }
+
+        if (data.arguments_mindmap) {
+            $('#output').html('');  // Clear the output div
+            console.log('arguments mindmap detected');
+            console.log(data.arguments_mindmap);
+            // Append topics mindmap to the output div
+            var argumentsDiv = $('<div class="mermaid">');
+            argumentsDiv.text(data.arguments_mindmap);
+            console.log(argumentsDiv);
+            argumentsDiv.hide().appendTo('#output').fadeIn(1000);
+            mermaid.init(undefined, argumentsDiv);
+            // Check if the mindmap is initialized
+            console.log('arguments mindmap initialized');
+            $('#status-message').text('Completed.')
+        }
+
+
+        $('html, body').animate({
+            scrollTop: $("#output").offset().top
+        }, 2000); // 2000 milliseconds for scrolling
+        
+    // Listen for error events
+    socket.on('error', function(data) {
+        console.log("Error: " + data.error);
+    });
+    });
+
+function showNotification(message) {
+    // Insert the message text
+    $("#notificationText").html(message);
+    // Show the modal
+    $("#notificationModal").modal('show');
+
+    // Hide the modal after 3 seconds
+    setTimeout(function(){
+        $("#notificationModal").modal('hide');
+    }, 5000);  // in milliseconds
+}
 
       //var output = document.getElementById('output'); Old scroll
       //output.scrollIntoView({behavior: "smooth"});

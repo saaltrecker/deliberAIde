@@ -34,7 +34,7 @@ def handle_button_called(data):
     print(f"HERE ARE THE DATA: {data}")
     if topics_filter:
         try:
-            #socketio.sleep(1.5) #TODO: Remove this sleep
+            socketio.sleep(1) #TODO: Remove this sleep
             topics = get_topics(text)
             print(f"TOPICS COLLECTED: {topics}")
 
@@ -52,7 +52,7 @@ def handle_button_called(data):
 
     if viewpoints_filter:
         try:
-            #socketio.sleep(5) #TODO: Remove this sleep
+            socketio.sleep(2) #TODO: Remove this sleep
             viewpoints = get_viewpoints_by_topic(topics, text)
             print(f"VIEWS COLLECTED: {viewpoints}")
 
@@ -70,7 +70,7 @@ def handle_button_called(data):
         try:
             if not viewpoints:
                 viewpoints = get_viewpoints_by_topic(topics, text)
-            #socketio.sleep(5) #TODO: Remove this sleep
+            socketio.sleep(3) #TODO: Remove this sleep
             arguments = get_arguments_by_viewpoint(viewpoints, text)
             print(f"ARGS COLLECTED: {arguments}")
             #emit('update', {"arguments": arguments})  # Send arguments
