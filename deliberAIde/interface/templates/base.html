@@ -26,11 +26,15 @@
 </head>
 
 <body>
+    <div id="loading-screen">
+        <img class="logo" src="../static/images/logo_deliberAIde.png" alt="deliberAIde Logo" width="760" height="200">
+    </div>
     <div>
         <div id="header">
             <a href="{{ url_for('use') }}">How to Use</a>
-            <!-- <a href="{{ url_for('home') }}" id="deliberAIde">deliberAIde</a> -->
-            <img src="cropped.jpg" alt="DeliberAIde" width="100" height="50">
+            <a href="{{ url_for('home') }}" id="deliberAIde">
+                <img class="logo" src="../static/images/logo_deliberAIde.png" alt="deliberAIde" width="250" height="55">
+            </a>
             <a href="{{ url_for('mission') }}">Our Mission</a>
         </div>
 
