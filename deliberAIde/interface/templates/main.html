@@ -11,10 +11,10 @@
 
             <!-- transcript entry area -->
             <br><br><div class="form__group">
-                <input type="text" class="form__input" name='text' id="text" placeholder="Transcript" required="" />
+                <input type="text" class="form__input" name='text' id="text" placeholder="Transcript" required rows="4" />
                 <label for="text" class="form__label">Transcript</label>
               </div>
-              
+
             <!-- checkboxes for filtering the targets (topics, views, arguments) -->
 
             <div class="checkbox" id="topics-filter">
@@ -40,12 +40,12 @@
                 </div>
 
             </div>
-            <!-- Button-->             
+            <!-- Button-->
             <br><br><button type="submit" style="text-align:center" class="button main-button">deliberAIde now</button>
         </div>
     </form>
     <hr>
-    <!-- status-message --> 
+    <!-- status-message -->
     <br><div style="text-align:center" id="status-message"></div>
     <div  style="text-align:center" id="output">
         {% if output %}

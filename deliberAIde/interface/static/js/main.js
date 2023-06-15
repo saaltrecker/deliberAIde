@@ -11,7 +11,7 @@ $(document).ready(function(){
             $('#arguments').prop('checked', false);
         }
     });
-        
+
     $('#viewpoints').change(function() {
         if (this.checked) {
             $('#arguments-filter').fadeIn();
@@ -19,8 +19,8 @@ $(document).ready(function(){
             $('#arguments-filter').fadeOut();
             $('#arguments').prop('checked', false);
         }
-    });  
-    
+    });
+
     $('.main-button').click(function(e){
         e.preventDefault();
 
@@ -36,7 +36,7 @@ $(document).ready(function(){
         //console.log(data);
 
         // If no checkboxes are checked, show a notification
-        if (!$('.checkbox-div :checkbox:checked').length) {
+        if (!data.topics) {
             showNotification("You must at least select topics for deliberAIde to work.");
             return;  // Exit the function
         }
@@ -85,7 +85,7 @@ $(document).ready(function(){
                 $('#status-message').text('Completed.');
             }
         }
-    
+
         if (data.viewpoints_mindmap) {
             $('#output').html('');  // Clear the output div
             console.log('viewpoints mindmap detected');
@@ -124,12 +124,13 @@ $(document).ready(function(){
         $('html, body').animate({
             scrollTop: $("#output").offset().top
         }, 2000); // 2000 milliseconds for scrolling
-        
+
     // Listen for error events
     socket.on('error', function(data) {
         console.log("Error: " + data.error);
     });
     });
+});
 
 function showNotification(message) {
     // Insert the message text
