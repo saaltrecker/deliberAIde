@@ -1,6 +1,26 @@
 $(document).ready(function(){
     var socket = io.connect();  // Connect to the server-side socket. Adjust the URL as necessary.
 
+    $('#topics').change(function() {
+        if (this.checked) {
+            $('#viewpoints-filter').fadeIn();
+        } else {
+            $('#viewpoints-filter').fadeOut();
+            $('#viewpoints').prop('checked', false);
+            $('#arguments-filter').fadeOut();
+            $('#arguments').prop('checked', false);
+        }
+    });
+        
+    $('#viewpoints').change(function() {
+        if (this.checked) {
+            $('#arguments-filter').fadeIn();
+        } else {
+            $('#arguments-filter').fadeOut();
+            $('#arguments').prop('checked', false);
+        }
+    });  
+    
     $('.main-button').click(function(e){
         e.preventDefault();
 
@@ -13,8 +33,26 @@ $(document).ready(function(){
             viewpoints: $('#viewpoints').is(':checked'),
             arguments: $('#arguments').is(':checked'),
         };
+        //console.log(data);
 
-        console.log(data);
+        // If no checkboxes are checked, show a notification
+        if (!$('.checkbox-div :checkbox:checked').length) {
+            showNotification("You must at least select topics for deliberAIde to work.");
+            return;  // Exit the function
+        }
+        // Check if the text is empty or if the length is less than the required minimum
+
+
+        if (!data.text || data.text.trim().length === 0) {
+            console.log("About to show notification...");
+            showNotification("A transcript must be entered for deliberAIde to assist you.");
+            return;  // Exit the function
+        }
+        if (data.text.trim().length < 100) {
+            console.log("About to show notification...");
+            showNotification("Sorry, you must enter a longer transcript for deliberAIde to assist you.");
+            return;  // Exit the function
+        }
 
         // Emit the button_called event, sending the data
         socket.emit('button_called', data);
@@ -94,6 +132,17 @@ $(document).ready(function(){
     });
 });
 
+function showNotification(message) {
+    // Insert the message text
+    $("#notificationText").html(message);
+    // Show the modal
+    $("#notificationModal").modal('show');
+
+    // Hide the modal after 3 seconds
+    setTimeout(function(){
+        $("#notificationModal").modal('hide');
+    }, 5000);  // in milliseconds
+}
 
         //var output = document.getElementById('output'); Old scroll
         //output.scrollIntoView({behavior: "smooth"});
