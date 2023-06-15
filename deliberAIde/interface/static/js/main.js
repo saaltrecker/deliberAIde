@@ -1,4 +1,9 @@
 $(document).ready(function(){
+    setTimeout(function(){
+        $("#loading-screen").fadeOut(4000, function () {
+            $(this).addClass('fadeOut');
+        });
+    }, 200); // delay of 0.2 second before beginning the fadeout
     var socket = io.connect();  // Connect to the server-side socket. Adjust the URL as necessary.
 
     $('#topics').change(function() {
@@ -36,7 +41,7 @@ $(document).ready(function(){
         //console.log(data);
 
         // If no checkboxes are checked, show a notification
-        if (!$('.checkbox-div :checkbox:checked').length) {
+        if (!data.topics) {
             showNotification("You must at least select topics for deliberAIde to work.");
             return;  // Exit the function
         }
@@ -130,6 +135,7 @@ $(document).ready(function(){
         console.log("Error: " + data.error);
     });
     });
+});
 
 function showNotification(message) {
     // Insert the message text
