@@ -130,7 +130,6 @@ $(document).ready(function(){
         console.log("Error: " + data.error);
     });
     });
-});
 
 function showNotification(message) {
     // Insert the message text
@@ -144,69 +143,69 @@ function showNotification(message) {
     }, 5000);  // in milliseconds
 }
 
-        //var output = document.getElementById('output'); Old scroll
-        //output.scrollIntoView({behavior: "smooth"});
+      //var output = document.getElementById('output'); Old scroll
+      //output.scrollIntoView({behavior: "smooth"});
 
 
-        // if(data.topics) {
-        //     var topicsDiv = $('<div>');
-        //     // append topics to the output div
-        //     var topicsHTML = '<br><h2> Here are the topics:</h2>';
-        //     topicsHTML += '<p>' + data.topics.main_topic + '</p>';
-        //     topicsDiv.html(topicsHTML);
-        //     topicsDiv.hide().appendTo('#output').fadeIn(1000);
+      // if(data.topics) {
+      //     var topicsDiv = $('<div>');
+      //     // append topics to the output div
+      //     var topicsHTML = '<br><h2> Here are the topics:</h2>';
+      //     topicsHTML += '<p>' + data.topics.main_topic + '</p>';
+      //     topicsDiv.html(topicsHTML);
+      //     topicsDiv.hide().appendTo('#output').fadeIn(1000);
 
-        //     console.log('topics as a list appended');
-        // }
+      //     console.log('topics as a list appended');
+      // }
 
-        // if(data.viewpoints) {
-        //     // Append viewpoints to the output div
-        //     var viewpointsDiv = $('<div>');
-        //     var viewpointsHTML = '<br><h2> Here are the viewpoints:</h2>';
-        
-        //     // Iterate over the viewpoints array
-        //     $.each(data.viewpoints.viewpoints, function(index, viewpointObj){
-        //         // Access viewpoint and append to HTML
-        //         var viewpoint = viewpointObj.viewpoint;
-        //         console.log("viewpoint here is: ", viewpoint);
-        //         viewpointsHTML += '<p>' + viewpoint + '</p>';
-                
-        //         // Check for any sub-viewpoints and append
-        //         var subViewpoints = viewpointObj.sub_viewpoints;
-        //         $.each(subViewpoints, function(index, subViewpointObj){
-        //             var subViewpoint = subViewpointObj.viewpoint;
-        //             console.log("Subviewpoint here is: ", subViewpoint);
-        //             viewpointsHTML += '<p>---' + subViewpoint + '</p>';
-        //         });
-        //     });
-            
-        //     viewpointsDiv.html(viewpointsHTML);
-        //     viewpointsDiv.hide().appendTo('#output').fadeIn(1000);
+      // if(data.viewpoints) {
+      //     // Append viewpoints to the output div
+      //     var viewpointsDiv = $('<div>');
+      //     var viewpointsHTML = '<br><h2> Here are the viewpoints:</h2>';
 
-        //     // Check if viewpoints are appended
-        //     console.log('viewpoints appended');
-        // if(data.arguments) {
-        //     // Append arguments to the output div
-        //     var argumentsHTML = '<br><h2> Here are the arguments:</h2>';
-        //     var argumentsDiv = $('<div>');
-        //     // Iterate over the viewpoints array
-        //     $.each(data.arguments.viewpoints, function(index, viewpointObj){
-        //         // Access viewpoint
-        //         //var viewpoint = viewpointObj.viewpoint;
-        //         // console.log("viewpoint here is: ", viewpoint);
-        //         // argumentsHTML += '<p><strong>' + viewpoint + '</strong></p>';
-                
-        //         // Access and append each argument for the viewpoint
-        //         var arguments = viewpointObj.arguments;
-        //         $.each(arguments, function(index, argumentObj){
-        //             var argumentSummary = argumentObj.summary;
-        //             console.log("Argument summary here is: ", argumentSummary);
-        //             argumentsHTML += '<p>-- ' + argumentSummary + '</p>';
-        //         });
-        //     });
-        //     argumentsDiv.html(argumentsHTML);  
-        //     //$('#output').append(argumentsHTML);
-        //     argumentsDiv.hide().appendTo('#output').fadeIn(1000);
-        //     //$('#output').hide().fadeIn(1000);  // Add this line for fade in
-        //     console.log('arguments appended');
-        // }
+      //     // Iterate over the viewpoints array
+      //     $.each(data.viewpoints.viewpoints, function(index, viewpointObj){
+      //         // Access viewpoint and append to HTML
+      //         var viewpoint = viewpointObj.viewpoint;
+      //         console.log("viewpoint here is: ", viewpoint);
+      //         viewpointsHTML += '<p>' + viewpoint + '</p>';
+
+      //         // Check for any sub-viewpoints and append
+      //         var subViewpoints = viewpointObj.sub_viewpoints;
+      //         $.each(subViewpoints, function(index, subViewpointObj){
+      //             var subViewpoint = subViewpointObj.viewpoint;
+      //             console.log("Subviewpoint here is: ", subViewpoint);
+      //             viewpointsHTML += '<p>---' + subViewpoint + '</p>';
+      //         });
+      //     });
+
+      //     viewpointsDiv.html(viewpointsHTML);
+      //     viewpointsDiv.hide().appendTo('#output').fadeIn(1000);
+
+      //     // Check if viewpoints are appended
+      //     console.log('viewpoints appended');
+      // if(data.arguments) {
+      //     // Append arguments to the output div
+      //     var argumentsHTML = '<br><h2> Here are the arguments:</h2>';
+      //     var argumentsDiv = $('<div>');
+      //     // Iterate over the viewpoints array
+      //     $.each(data.arguments.viewpoints, function(index, viewpointObj){
+      //         // Access viewpoint
+      //         //var viewpoint = viewpointObj.viewpoint;
+      //         // console.log("viewpoint here is: ", viewpoint);
+      //         // argumentsHTML += '<p><strong>' + viewpoint + '</strong></p>';
+
+      //         // Access and append each argument for the viewpoint
+      //         var arguments = viewpointObj.arguments;
+      //         $.each(arguments, function(index, argumentObj){
+      //             var argumentSummary = argumentObj.summary;
+      //             console.log("Argument summary here is: ", argumentSummary);
+      //             argumentsHTML += '<p>-- ' + argumentSummary + '</p>';
+      //         });
+      //     });
+      //     argumentsDiv.html(argumentsHTML);
+      //     //$('#output').append(argumentsHTML);
+      //     argumentsDiv.hide().appendTo('#output').fadeIn(1000);
+      //     //$('#output').hide().fadeIn(1000);  // Add this line for fade in
+      //     console.log('arguments appended');
+      // }

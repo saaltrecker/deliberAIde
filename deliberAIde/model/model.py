@@ -27,7 +27,7 @@ def get_topics(transcript):
     Identify the one or several main topics discussed in the discussion transcript, delimited with triple backticks. If there are multiple identified topics, but they all center around the same main topic, only record the main topic. Don't record sub-topics.
 
     Provide the output in JSON-format.
-    
+
     Review transcript: '''{transcript}'''
     """
 

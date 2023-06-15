@@ -15,19 +15,19 @@
 
 #header {
     width: 100vw; /* Viewport Width (100% of the viewport width) */
-    background-color: #89ab89;
+    background-color: #4c5e71;
     padding: 20px; /* vertical padding */
     text-align: center;
     margin-bottom: 20px;
     display: flex;
     justify-content: space-around; /* evenly space the elements across the header */
-    align-items: center; /* vertically center the text */ 
+    align-items: center; /* vertically center the text */
     /* background: #f9f9f9; /* add a light grey background color */
     font-family: 'Inter', sans-serif;
 }
 
 #header a {
-    color: #333; /* a dark grey color */
+    color: #ffffff; /* a dark grey color */
     text-decoration: none; /* removes the underline */
     font-size: 20px; /* default font size */
 }
@@ -39,6 +39,7 @@
 /* Increase the font size of the deliberAIde link */
 #header #deliberAIde {
     font-size: 30px; /* larger font size */
+    font-weight: italic; /* make the font bold */
 }
 
 #header h1 {
@@ -57,9 +58,9 @@
 
 body {
   /* height: 100vh;*/
-  width: 100%; 
-  background: #0f2027; /* fallback for old browsers */
-  background: linear-gradient(to right,#495053, #202223, #000000);
+  width: 100%;
+  /*background: #05090b;*/ /* fallback for old browsers */
+  background: linear-gradient(to right,#4c5e71, #4c5e71,#8a98a3, #9cacb4);
   display: flex;
   flex-direction: column; /* Stack the content vertically */
   min-height: 100vh; /* Make sure the body takes up the full viewport height */
@@ -183,8 +184,8 @@ input[type="checkbox"]:checked + label {
 }
 
 .button {
-    background-color: #73bd76; /* Green */
-    border: #313131;
+    background-color: #0f40d6; /* Green */
+    border: #010d7665;
     color: rgb(255, 255, 255);
     padding: 30px 60px;
     text-align: center;
@@ -196,16 +197,16 @@ input[type="checkbox"]:checked + label {
 }
 
 .main-button {
-    font-size: 40px;
+    font-size: 60px;
     font-weight: 300;
     letter-spacing: 1px;
     padding: 10px 20px;
     border-radius: 25px; /* adjust this to make the button more rounded */
-    background-color: #73bd76; /* adjust this to change the color of the button */
+    background-color: #349bdb; /* adjust this to change the color of the button */
     transition: opacity 0.3s ease-in-out;
 }
 .main-button:active { /* :active pseudo-class selects the button when it's being clicked */
-    background-color: #5a995a; /* A darker green */
+    background-color: #349bdb; /* A darker green */
     transform: scale(0.95); /* Makes the button slightly smaller */
     transition: all 0.2s; /* Smoothens the transition */
 }
@@ -216,7 +217,7 @@ input[type="checkbox"]:checked + label {
     font-size: 16px;
     color: #ffffff;
 }
-/* 
+/*
 @keyframes dots {
     0%, 20% {
         color: rgba(0,0,0,0);
@@ -271,8 +272,8 @@ input[type="checkbox"]:checked + label {
 .mermaid {
     width: 100%;
     height: auto;
-    max-width: 1500px; /* Or whatever size you want*/  
-    margin: 0 auto;   /* This centers the diagram*/  
+    max-width: 1500px; /* Or whatever size you want*/
+    margin: 0 auto;   /* This centers the diagram*/
     margin-top: 100px;  /* Adjust this for the top output */
     font-size: 100px;  /*Change the font size*/
 }
@@ -285,9 +286,8 @@ input[type="checkbox"]:checked + label {
     text-align: center;
     margin-top: auto; /* Push the footer down to the bottom */
   }
-  
-  
+
+
   .footer p {
     margin: 0;
   }
-

@@ -24,11 +24,13 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     {% block head %}{% endblock %}
 </head>
+
 <body>
     <div>
         <div id="header">
             <a href="{{ url_for('use') }}">How to Use</a>
-            <a href="{{ url_for('home') }}" id="deliberAIde">deliberAIde</a>
+            <!-- <a href="{{ url_for('home') }}" id="deliberAIde">deliberAIde</a> -->
+            <img src="cropped.jpg" alt="DeliberAIde" width="100" height="50">
             <a href="{{ url_for('mission') }}">Our Mission</a>
         </div>
 
