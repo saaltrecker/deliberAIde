@@ -4,10 +4,13 @@ import time
 
 sys.path.append("../")
 
-from deliberAIde.model.model import get_topics, get_viewpoints_by_topic, get_arguments_by_viewpoint # model functions
+#from deliberAIde.model.model import get_topics, get_viewpoints_by_topic, get_arguments_by_viewpoint # model functions
 #from deliberAIde.interface.functions.test_data import get_topics, get_viewpoints_by_topic, get_arguments_by_viewpoint # test data functions
-from deliberAIde.interface.functions.dict_create import dict_create
-from deliberAIde.interface.functions.mermaid import topics_json_to_mermaid_mindmap, views_json_to_mermaid_mindmap, args_json_to_mermaid_mindmap
+#from deliberAIde.interface.functions.dict_create import dict_create
+#from deliberAIde.interface.functions.mermaid import topics_json_to_mermaid_mindmap, views_json_to_mermaid_mindmap, args_json_to_mermaid_mindmap
+from functions.test_data import get_topics, get_viewpoints_by_topic, get_arguments_by_viewpoint # test data functions
+from functions.dict_create import dict_create
+from functions.mermaid import topics_json_to_mermaid_mindmap, views_json_to_mermaid_mindmap, args_json_to_mermaid_mindmap
 
 
 from flask import Flask, render_template#, request, redirect, jsonify, Response, stream_with_context
@@ -93,5 +96,5 @@ def mission():
     return render_template('mission.html')
 
 if __name__ == '__main__':
-    socketio.run(app, host="0.0.0.0", port=sys.argv[1], allow_unsafe_werkzeug=True)
-    #socketio.run(app)
+    #socketio.run(app, host="0.0.0.0", port=sys.argv[1], allow_unsafe_werkzeug=True)
+    socketio.run(app)
