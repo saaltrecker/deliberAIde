@@ -1,4 +1,9 @@
 $(document).ready(function(){
+    setTimeout(function(){
+        $("#loading-screen").fadeOut(4000, function () {
+            $(this).addClass('fadeOut');
+        });
+    }, 200); // delay of 0.2 second before beginning the fadeout
     var socket = io.connect();  // Connect to the server-side socket. Adjust the URL as necessary.
 
     $('#topics').change(function() {
