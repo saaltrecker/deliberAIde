@@ -162,7 +162,7 @@ body {
   visibility: hidden;
   -webkit-transform: translateY(-4rem);
   transform: translateY(-4rem);
-  overflow: auto;
+  overflow-x: auto;
   resize: vertical;
 }
 
@@ -217,7 +217,7 @@ input[type="checkbox"]:checked + label {
 
 .button {
     background-color: #0f41d6da; /* Green */
-    border: #010d7665;
+    border: #f7f7f765;
     color: rgb(255, 255, 255);
     padding: 30px 60px;
     text-align: center;

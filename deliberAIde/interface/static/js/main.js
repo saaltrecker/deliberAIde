@@ -94,6 +94,8 @@ $(document).ready(function(){
         if (data.viewpoints_mindmap) {
             $('#output').html('');  // Clear the output div
             console.log('viewpoints mindmap detected');
+            console.log(data.viewpoints);
+            console.log('above is the raw viewpoints json, below is views mindmap string')
             // Append topics mindmap to the output div
             var viewpointsDiv = $('<div class="mermaid">');
             viewpointsDiv.text(data.viewpoints_mindmap);
@@ -113,6 +115,8 @@ $(document).ready(function(){
         if (data.arguments_mindmap) {
             $('#output').html('');  // Clear the output div
             console.log('arguments mindmap detected');
+            console.log(data.arguments);
+            console.log('above is the raw arguments json, below is args mindmap string')
             console.log(data.arguments_mindmap);
             // Append topics mindmap to the output div
             var argumentsDiv = $('<div class="mermaid">');
