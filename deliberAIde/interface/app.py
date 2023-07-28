@@ -4,14 +4,10 @@ import time
 
 sys.path.append("../")
 
-#from deliberAIde.model.model import get_topics, get_viewpoints_by_topic, get_arguments_by_viewpoint # model functions
+from deliberAIde.model.model import get_topics, get_viewpoints_by_topic, get_arguments_by_viewpoint # model functions
 #from deliberAIde.interface.functions.test_data import get_topics, get_viewpoints_by_topic, get_arguments_by_viewpoint # test data functions
-#from deliberAIde.interface.functions.dict_create import dict_create
-#from deliberAIde.interface.functions.mermaid import topics_json_to_mermaid_mindmap, views_json_to_mermaid_mindmap, args_json_to_mermaid_mindmap
-from functions.test_data import get_topics, get_viewpoints_by_topic, get_arguments_by_viewpoint # test data functions
-from functions.dict_create import dict_create
-from functions.mermaid import topics_json_to_mermaid_mindmap, views_json_to_mermaid_mindmap, args_json_to_mermaid_mindmap
-
+from deliberAIde.interface.functions.dict_create import dict_create
+from deliberAIde.interface.functions.mermaid import topics_json_to_mermaid_mindmap, views_json_to_mermaid_mindmap, args_json_to_mermaid_mindmap
 
 from flask import Flask, render_template#, request, redirect, jsonify, Response, stream_with_context
 from flask_socketio import SocketIO, emit
@@ -38,7 +34,7 @@ def handle_button_called(data):
     print(f"HERE ARE THE DATA: {data}")
     if topics_filter:
         try:
-            socketio.sleep(1) #TODO: Remove this sleep
+            #socketio.sleep(1) #TODO: Remove this sleep
             topics = get_topics(text)
             print(f"TOPICS COLLECTED: {topics}")
 
@@ -56,14 +52,15 @@ def handle_button_called(data):
 
     if viewpoints_filter:
         try:
-            socketio.sleep(2) #TODO: Remove this sleep
+            #socketio.sleep(2) #TODO: Remove this sleep
             viewpoints = get_viewpoints_by_topic(topics, text)
             print(f"VIEWS COLLECTED: {viewpoints}")
 
             #emit('update', {"viewpoints": viewpoints})  # Send viewpoints
 
             emit('update', {"viewpoints_mindmap": views_json_to_mermaid_mindmap(viewpoints),
-                            "arguments_filter": arguments_filter})  # Send viewpoints mermaid diagram
+                            "arguments_filter": arguments_filter,
+                            "viewpoints": viewpoints})  # Send viewpoints mermaid diagram
 
             print("--- %s seconds ---" % (time.time() - start_time)) #TODO: Comment out this time tracker
 
@@ -74,11 +71,12 @@ def handle_button_called(data):
         try:
             if not viewpoints:
                 viewpoints = get_viewpoints_by_topic(topics, text)
-            socketio.sleep(3) #TODO: Remove this sleep
+            #socketio.sleep(3) #TODO: Remove this sleep
             arguments = get_arguments_by_viewpoint(viewpoints, text)
             print(f"ARGS COLLECTED: {arguments}")
             #emit('update', {"arguments": arguments})  # Send arguments
-            emit('update', {"arguments_mindmap": args_json_to_mermaid_mindmap(arguments)})  # Send arguments mermaid diagram
+            emit('update', {"arguments_mindmap": args_json_to_mermaid_mindmap(arguments),
+                            "arguments": arguments})  # Send arguments mermaid diagram
 
             print("Here is the diagram code: ", args_json_to_mermaid_mindmap(arguments)) # Checking
             print("--- %s seconds ---" % (time.time() - start_time)) #TODO: Comment out this time tracker
