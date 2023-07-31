@@ -1,73 +1,58 @@
-# Data analysis
-- Document here the project: deliberAIde
-- Description: Project Description
-- Data Source:
-- Type of analysis:
+# deliberAIde
 
-Please document the project the better you can.
+![deliberAIde](./deliberAIde/interface/static/images/logo_deliberAIde.png)
 
-# Startup the project
+## Description
 
-The initial setup.
+deliberAIde is a deliberation assistant for situations where one wishes to promote equitable decision-making. The initial prototype, developed over 1 week, utilizes GPT-4 and prompt-engineering in handling a discussion transcript and performing topic, argument, and viewpoint analysis. It utilizes Flask API and a very simple HTML/JS/CSS UI to display the summarization results into a mermaid diagram.
 
-Create virtualenv and install the project:
-```bash
-sudo apt-get install virtualenv python-pip python-dev
-deactivate; virtualenv ~/venv ; source ~/venv/bin/activate ;\
-    pip install pip -U; pip install -r requirements.txt
-```
+We intend to continue further developing deliberAIde over the coming months, to include features such as real-time audio transcription, improved data visualization, sentiment analysis, and smoother UI/UX.
 
-Unittest test:
-```bash
-make clean install test
-```
+If you are interested in getting involved in the deliberAIde project, please reach out to one of the developers.
 
-Check for deliberAIde in github.com/{group}. If your project is not set please add it:
+## Project Status
 
-Create a new project on github.com/{group}/deliberAIde
-Then populate it:
+deliberAIde is ongoing and in it's early stages. If you have suggestions for features you would like to see, please reach out to our team!
 
-```bash
-##   e.g. if group is "{group}" and project_name is "deliberAIde"
-git remote add origin git@github.com:{group}/deliberAIde.git
-git push -u origin master
-git push -u origin --tags
-```
+Future features potentially include:
 
-Functionnal test with a script:
+- Real-time audio transcription
+- Improved data visualization
+- Discourse mapping
+- Analysis of agreements and conflicts (DPA)
+- Tracking the deliberative quality
+- A moderation feature to flag potentially harmful content
 
-```bash
-cd
-mkdir tmp
-cd tmp
-deliberAIde-run
-```
+## Requirements
 
-# Install
+A list of required packages is found in the `requirements.txt` file. Shown below:
 
-Go to `https://github.com/{group}/deliberAIde` to see the project, manage issues,
-setup you ssh public key, ...
+    openai
+    flask
+    flask_socketio
+    gunicorn
+    pandas
+    python-dotenv
 
-Create a python3 virtualenv and activate it:
 
-```bash
-sudo apt-get install virtualenv python-pip python-dev
-deactivate; virtualenv -ppython3 ~/venv ; source ~/venv/bin/activate
-```
+## Installation and Use
 
-Clone the project and install it:
+One can download and run **deliberAIde** locally with an openAPI key. Alternatively, future prototypes will be deployed on our [website](https://deliberaide.com), which is currently inactive. Bookmark it for later 😉
 
-```bash
-git clone git@github.com:{group}/deliberAIde.git
-cd deliberAIde
-pip install -r requirements.txt
-make clean install test                # install and test
-```
-Functionnal test with a script:
+## Known Bugs
 
-```bash
-cd
-mkdir tmp
-cd tmp
-deliberAIde-run
-```
+- The model effectively summarizes a transcript into it's topic(s), viewpoints, and arguments, however inconsistently builds the JSON output. Consistent JSON formation is to be improved in the next update.
+- Difficulty in handling multiple topics of discussion.
+
+## FAQ
+
+To be updated as questions are received.
+### Why deliberAIde?
+
+deliberAIde was created as a tool to improve moderation within the context of deliberative assemblies, such as those seen in Ireland or Iceland in the past decades. We wish to empower minority voices to ensure everyone is heard, when crucial policy decisions can be taken that will affect their lives. Within the political atmosphere, this tool serves as a means to enhance the inclusion and engagement of participants, promote mutual understanding, facilitate effective decision-making, and bridge the gap between large-scale involvement and in-depth deliberations. By enabling efficient information processing and facilitating the selection of discursive representatives, deliberAIde strengthens the democratic process for governing AI. Our ultimate goal is to establish deliberAIde as the foundation of a non-profit democracy-tech company committed to making participatory decision-making more inclusive, scalable, and sustainable.
+
+Although deliberAIde was initially conceptualized as a tool within deliberative assemblies, it's application goes wider than the political arena. One can imagine its use in union meetings, business engagements, within legal sessions, or at the local sports club. Whenever one wants to make truly equal and inclusive decisions, deliberAIde is there for you.
+
+## Copyright and licensing information
+
+This project is licensed under the terms of the GNU Affero General Public License v3.0. Please see the `LICENSE.txt` for specific details.
