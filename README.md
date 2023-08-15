@@ -4,24 +4,25 @@
 
 ## Description
 
-deliberAIde is a deliberation assistant for situations where one wishes to promote equitable decision-making. The initial prototype, developed over 1 week, utilizes GPT-4 and prompt-engineering in handling a discussion transcript and performing topic, argument, and viewpoint analysis. It utilizes Flask API and a very simple HTML/JS/CSS UI to display the summarization results into a mermaid diagram.
+__deliberAIde__ is a deliberation assistant for situations where one wishes to promote more inclusive and effective decision-making. The initial prototype, developed over 1 week, utilizes GPT-4 and prompt-engineering in handling a discussion transcript and performing topic, argument, and viewpoint analysis. It utilizes Flask API and a very simple HTML/JS/CSS UI to display the summarization results into a mermaid minmap.
 
-We intend to continue further developing deliberAIde over the coming months, to include features such as real-time audio transcription, improved data visualization, sentiment analysis, and smoother UI/UX.
-
+We intend to continue further developing deliberAIde over the coming months, to include features such as real-time audio transcription, improved data visualization, conflict analysis, and more intuitive UI/UX.
+​
 If you are interested in getting involved in the deliberAIde project, please reach out to one of the developers.
 
 ## Project Status
 
-deliberAIde is ongoing and in it's early stages. If you have suggestions for features you would like to see, please reach out to our team!
-
+deliberAIde is ongoing and in its early stages. If you have suggestions for features you would like to see, please reach out to our team!
+​
 Future features potentially include:
-
+​
 - Real-time audio transcription
 - Improved data visualization
 - Discourse mapping
-- Analysis of agreements and conflicts (DPA)
+- Analysis of agreements and conflicts (automated Deliberative Policy Analysis)
 - Tracking the deliberative quality
 - A moderation feature to flag potentially harmful content
+​
 
 ## Requirements
 
@@ -33,7 +34,6 @@ A list of required packages is found in the `requirements.txt` file. Shown below
     gunicorn
     pandas
     python-dotenv
-
 
 ## Installation and Use
 
@@ -47,12 +47,13 @@ One can download and run **deliberAIde** locally with an openAPI key. Alternativ
 ## FAQ
 
 To be updated as questions are received.
+
 ### Why deliberAIde?
 
-deliberAIde was created as a tool to improve moderation within the context of deliberative assemblies, such as those seen in Ireland or Iceland in the past decades. We wish to empower minority voices to ensure everyone is heard, when crucial policy decisions can be taken that will affect their lives. Within the political atmosphere, this tool serves as a means to enhance the inclusion and engagement of participants, promote mutual understanding, facilitate effective decision-making, and bridge the gap between large-scale involvement and in-depth deliberations. By enabling efficient information processing and facilitating the selection of discursive representatives, deliberAIde strengthens the democratic process for governing AI. Our ultimate goal is to establish deliberAIde as the foundation of a non-profit democracy-tech company committed to making participatory decision-making more inclusive, scalable, and sustainable.
+Data indicates a decline in inclusiveness and equal participation in political processes in democratic countries. Deliberative democracy formats like citizen assemblies have been gaining popularity as a solution, but still face barriers to inclusivity, participation, and consensus-building. This is where deliberAIde comes in. deliberAIde's mission is to create as an AI-powered tool to assist moderation and participation within deliberative decision-making processes like citizen assemblies, in order to empower inclusive and effective policy decisions. It closes remaining gaps through real-time transcription, translation, language simplification and visualization so everyone can engage, while AI-powered conflict analysis enhances mutual understanding and consensus-building. By enabling efficient information processing and facilitating comprehension, deliberAIde strengthens inclusion, equal participation and effective conflict resolution in deliberative forums. 
 
-Although deliberAIde was initially conceptualized as a tool within deliberative assemblies, it's application goes wider than the political arena. One can imagine its use in union meetings, business engagements, within legal sessions, or at the local sports club. Whenever one wants to make truly equal and inclusive decisions, deliberAIde is there for you.
+Our goal as a non-profit democracy-tech company is to make participatory decision-making more inclusive, effective, and sustainable. Although conceptualized for deliberative assemblies, deliberAIde's application is wider, from business to civil society. deliberAIde ensures all voices are heard for truly equal and inclusive decisions - from corporate board rooms to community town halls.
 
 ## Copyright and licensing information
 
-This project is licensed under the terms of the GNU Affero General Public License v3.0. Please see the `LICENSE.txt` for specific details.
+All rights reserved. We are working on the way we will (open-source) license our product.
