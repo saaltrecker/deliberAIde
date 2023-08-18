@@ -1,0 +1,61 @@
+{% extends 'base.html' %} {# This line tells Jinja that this template
+    should replace the {% block body %} in base.html with the contents of this template. #}
+
+{% block head %}
+    <title>deliberAIde now</title>
+{% endblock %}
+
+{% block body %}
+
+    <form method="POST" class="form">
+        <div style="text-align:center">
+
+            <!-- transcript entry area -->
+            <br><br><div class="form__group">
+                <textarea type="text" class="form__input" name='text' id="text" placeholder="Transcript"></textarea>
+                <label for="text" class="form__label">Transcript</label>
+            </div>
+
+            <!-- checkboxes for filtering the targets (topics, views, arguments) -->
+            <div class="checkbox-container">
+                <div class="checkbox" id="topics-filter">
+                    <input type="checkbox" id="topics" name="topics" value="true" class="topics-checkbox">
+                    <label for="topics">Topics</label>
+                </div>
+                <div class="checkbox" id="viewpoints-filter">
+                    <input type="checkbox" id="viewpoints" name="viewpoints" value="true">
+                    <label for="viewpoints">Viewpoints</label>
+                </div>
+                <div class="check" id="arguments-filter">
+                    <input type="checkbox" id="arguments" name="arguments" value="true">
+                    <label for="arguments">Arguments</label>
+                </div>
+            </div>
+            <!--Modal Messages-->
+            <div class="modal fade" id="notificationModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body" id="notificationText">
+                    <!-- Text will be inserted here -->
+                    </div>
+                </div>
+                </div>
+
+            </div>
+            <!-- Button-->
+            <div class="button-container">
+                <br><button type="submit" style="text-align:center" class="button main-button">deliberAIde now</button>
+            </div>
+        </div>
+    </form>
+    <hr>
+    <!-- status-message -->
+    <br><div style="text-align:center" id="status-message"></div>
+    <div  style="text-align:center" id="output">
+        {% if output %}
+            <br><br><p>{{ output }}</p>
+        {% endif %}
+    </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+{% endblock %}

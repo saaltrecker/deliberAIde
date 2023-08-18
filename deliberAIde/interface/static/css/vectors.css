@@ -1,0 +1,19 @@
+.vectorleft {
+    position: absolute;
+    width: 128px;
+    height: 72px;
+    left: 498px;
+    top: 573px;
+    border: 1px solid #FFFFFF;
+  }
+
+.vectorright {
+    position: absolute;
+    width: 128px;
+    height: 72px;
+    left: 918px;
+    top: 573px;
+    
+    border: 1px solid #FFFFFF;
+    transform: matrix(-1, 0, 0, 1, 0, 0);
+}
